@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">2048</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="new_game">New Game</string>
+    <string name="high_score">HIGH SCORE</string>
+    <string name="score">SCORE</string>
+    <string name="instructions">Swipe to move.</string>
+    <string name="instructuons_inversed">Tap on empty cells to add one.</string>
+    <string name="you_win">You Win</string>
+    <string name="game_over">Game Over</string>
+    <string name="menu_undo">Undo</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_autorun">Auto Run</string>
+    <string name="menu_stopautorun">Stop Auto Run</string>
+    <string name="settings_sensitivity">Sensitivity</string>
+    <string name="settings_sensitivity_high">High</string>
+    <string name="settings_sensitivity_midium">Midium</string>
+    <string name="settings_sensitivity_low">Low</string>
+    <string name="settings_variety">Variety</string>
+    <string name="settings_variety_periodic_table_of_elements_first_twenty">Periodic Table Of Elements (First 20 elements)</string>
+    <string name="settings_inverse_mode">Inverse Mode</string>
+    <string name="settings_order">Show Order</string>
+    <string name="settings_order_none">None</string>
+    <string name="settings_rows">Row Number</string>
+</resources>
