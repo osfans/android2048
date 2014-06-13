@@ -301,6 +301,10 @@ public class MainView extends View
                     //Get and represent the value of the tile
                     int value = currentTile.getValue();
                     int index = log2(value);
+                    if (index >= cellRectangle.length) {
+                        newGame();
+                        return;
+                    }
 
                     //Check for any active animations
                     ArrayList<AnimationCell> aArray = game.aGrid.getAnimationCell(xx, yy);
@@ -494,6 +498,7 @@ public class MainView extends View
         }
         maxValue = (int) Math.pow(2, tileTexts.length);
 
+        cellRectangle = new Drawable[12];
         cellRectangle[0] =  resources.getDrawable(R.drawable.cell_rectangle);
         cellRectangle[1] =  resources.getDrawable(R.drawable.cell_rectangle_2);
         cellRectangle[2] =  resources.getDrawable(R.drawable.cell_rectangle_4);
