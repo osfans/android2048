@@ -1,25 +1,26 @@
 package com.osfans.android2048;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.osfans.android2048.settings.SettingsProvider;
 import com.osfans.android2048.settings.SettingsActivity;
+import com.osfans.android2048.settings.SettingsProvider;
 
 public class MainActivity extends Activity {
 
     public static boolean save = true;
-    
-    public MainView view;
     static MainActivity mSelf;
+    public MainView view;
+
+    public static MainActivity getInstance() {
+        return mSelf;
+    }
 
     public void newGame() {
         view = new MainView(getBaseContext());
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
         // Restore state
         SharedPreferences prefs = getSharedPreferences("state", 0);
         int size = prefs.getInt("size", 0);
-        if (size == view.game.numSquaresX) {
+        if (size == MainGame.numSquaresX) {
             Tile[][] field = view.game.grid.field;
             String[] saveState = new String[field[0].length];
             for (int xx = 0; xx < saveState.length; xx++) {
@@ -51,12 +52,8 @@ public class MainActivity extends Activity {
         setContentView(view);
     }
 
-    public void newCell(){
+    public void newCell() {
         view.initRectangleDrawables();
-    }
-
-    public static MainActivity getInstance(){
-        return mSelf;
     }
 
     @Override
@@ -65,7 +62,7 @@ public class MainActivity extends Activity {
         mSelf = this;
         SettingsProvider.initPreferences(this);
         InputListener.loadSensitivity();
-        
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         newGame();
@@ -80,8 +77,8 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        
-        if (view.inverseMode) {
+
+        if (MainView.inverseMode) {
             menu.findItem(R.id.menu_undo).setEnabled(false);
             menu.findItem(R.id.menu_autorun).setEnabled(false);
             menu.findItem(R.id.menu_stopautorun).setEnabled(false);
@@ -94,7 +91,7 @@ public class MainActivity extends Activity {
             menu.findItem(R.id.menu_autorun).setEnabled(true);
             menu.findItem(R.id.menu_stopautorun).setEnabled(false);
         }
-        
+
         return true;
     }
 
@@ -123,10 +120,10 @@ public class MainActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        
+
         // If variety switched, do not save
         if (!save) return;
-        
+
         SharedPreferences prefs = getSharedPreferences("state", 0);
         SharedPreferences.Editor edit = prefs.edit();
         Tile[][] field = view.game.grid.field;
@@ -151,7 +148,7 @@ public class MainActivity extends Activity {
         edit.putLong("high score", view.game.highScore);
         edit.putBoolean("won", view.game.won);
         edit.putBoolean("lose", view.game.lose);
-        edit.putInt("size", view.game.numSquaresX);
+        edit.putInt("size", MainGame.numSquaresX);
         edit.commit();
     }
 }

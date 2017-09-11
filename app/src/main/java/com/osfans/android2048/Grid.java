@@ -7,7 +7,7 @@ public class Grid {
     public Tile[][] field;
     public Tile[][] lastField;
     public boolean canRevert = false;
-    
+
     int sizeX, sizeY;
 
     public Grid(int sizeX, int sizeY) {
@@ -24,11 +24,11 @@ public class Grid {
     }
 
     public Cell randomAvailableCell() {
-       ArrayList<Cell> availableCells = getAvailableCells();
-       if (availableCells.size() >= 1) {
-           return availableCells.get((int) Math.floor(Math.random() * availableCells.size()));
-       }
-       return null;
+        ArrayList<Cell> availableCells = getAvailableCells();
+        if (availableCells.size() >= 1) {
+            return availableCells.get((int) Math.floor(Math.random() * availableCells.size()));
+        }
+        return null;
     }
 
     public ArrayList<Cell> getAvailableCells() {
@@ -73,7 +73,7 @@ public class Grid {
 
     public boolean isCellWithinBounds(Cell cell) {
         return 0 <= cell.getX() && cell.getX() < field.length
-            && 0 <= cell.getY() && cell.getY() < field[0].length;
+                && 0 <= cell.getY() && cell.getY() < field[0].length;
     }
 
     public boolean isCellWithinBounds(int x, int y) {
@@ -88,10 +88,10 @@ public class Grid {
     public void removeTile(Tile tile) {
         field[tile.getX()][tile.getY()] = null;
     }
-    
+
     public void saveTiles() {
         canRevert = true;
-        
+
         lastField = new Tile[sizeX][sizeY];
         for (int xx = 0; xx < field.length; xx++) {
             for (int yy = 0; yy < field.length; yy++) {
@@ -103,10 +103,10 @@ public class Grid {
             }
         }
     }
-    
+
     public void revertTiles() {
         canRevert = false;
-        
+
         for (int xx = 0; xx < lastField.length; xx++) {
             for (int yy = 0; yy < lastField.length; yy++) {
                 if (lastField[xx][yy] == null) {
@@ -117,7 +117,7 @@ public class Grid {
             }
         }
     }
-    
+
     @Override
     public Grid clone() {
         Tile[][] newField = new Tile[sizeX][sizeY];

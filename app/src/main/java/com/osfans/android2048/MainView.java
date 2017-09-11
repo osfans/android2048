@@ -6,27 +6,35 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.View;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-
-import java.lang.InterruptedException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.ConcurrentModificationException;
+import android.view.View;
 
 import com.osfans.android2048.settings.SettingsProvider;
 
-public class MainView extends View
-{
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Random;
+
+public class MainView extends View {
+    static final int BASE_ANIMATION_TIME = 120000000;
+    static final float MOVING_ACCELERATION = (float) 0.6;
+    static final float MERGING_ACCELERATION = (float) 0.6;
+    static final float MAX_VELOCITY = (float) (MERGING_ACCELERATION * 0.5); // v = at (t = 0.5)
+    public static boolean inverseMode = false;
+    static int sYIcons;
+    static int sXNewGame;
+    static int iconSize;
+    static int maxValue;
+    static int textPaddingSize = 0;
+    static int iconPaddingSize = 0;
+    public MainGame game;
     Paint paint = new Paint();
     Paint paintOrder = new Paint();
-    public MainGame game;
     AI ai;
     InputListener listener;
-
     boolean getScreenSize = true;
     int cellSize = 0;
     float textSize = 0;
@@ -45,53 +53,28 @@ public class MainView extends View
     int TEXT_BLACK;
     int TEXT_WHITE;
     int TEXT_BROWN;
-
-
     double halfNumSquaresX;
     double halfNumSquaresY;
-
     int startingX;
     int startingY;
     int endingX;
     int endingY;
-
     int sYAll;
     int titleStartYAll;
     int bodyStartYAll;
     int eYAll;
     int titleWidthHighScore;
     int titleWidthScore;
-
-    static int sYIcons;
-    static int sXNewGame;
-
-    static int iconSize;
     long lastFPSTime = System.nanoTime();
     long currentTime = System.nanoTime();
-
     float titleTextSize;
     float bodyTextSize;
     float headerTextSize;
     float instructionsTextSize;
     float gameOverTextSize;
-
     boolean refreshLastTime = true;
-    
     String highScore, score, youWin, gameOver, instructions = "";
-
     String[] tileTexts;
-    static int maxValue;
-    
-    public static boolean inverseMode = false;
-    
-    static final int BASE_ANIMATION_TIME = 120000000;
-    static int textPaddingSize = 0;
-    static int iconPaddingSize = 0;
-
-    static final float MOVING_ACCELERATION = (float) 0.6;
-    static final float MERGING_ACCELERATION = (float) 0.6;
-    static final float MAX_VELOCITY = (float) (MERGING_ACCELERATION * 0.5); // v = at (t = 0.5)
-    
     Handler aiHandler = new Handler() {
 
         @Override
@@ -104,7 +87,8 @@ public class MainView extends View
             }
         }
     };
-    
+    Thread aiThread;
+    boolean aiRunning = false;
     Runnable aiRunnable = new Runnable() {
         @Override
         public void run() {
@@ -115,7 +99,7 @@ public class MainView extends View
                 } catch (NullPointerException e) {
                     break;
                 }
-                
+
                 if (inverseMode) {
                     // Run only one step in inverse mode
                     aiRunning = false;
@@ -133,19 +117,51 @@ public class MainView extends View
             }
         }
     };
-    
-    Thread aiThread;
-    
-    boolean aiRunning = false;
-    
+
+    public MainView(Context context) {
+        super(context);
+        Resources resources = context.getResources();
+
+        //Loading resources
+        game = new MainGame(context, this);
+
+        try {
+            highScore = resources.getString(R.string.high_score);
+            score = resources.getString(R.string.score);
+            youWin = resources.getString(R.string.you_win);
+            gameOver = resources.getString(R.string.game_over);
+            backgroundRectangle = resources.getDrawable(R.drawable.background_rectangle);
+            settingsIcon = resources.getDrawable(R.drawable.ic_action_refresh);
+            lightUpRectangle = resources.getDrawable(R.drawable.light_up_rectangle);
+            fadeRectangle = resources.getDrawable(R.drawable.fade_rectangle);
+            TEXT_WHITE = resources.getColor(R.color.text_white);
+            TEXT_BLACK = resources.getColor(R.color.text_black);
+            TEXT_BROWN = resources.getColor(R.color.text_brown);
+            backgroundColor = resources.getColor(R.color.background);
+            Typeface font = Typeface.createFromAsset(resources.getAssets(), "Symbola.ttf");
+            paint.setTypeface(font);
+            paint.setAntiAlias(true);
+        } catch (Exception e) {
+            System.out.println("Error getting assets?");
+        }
+        listener = new InputListener(this);
+        setOnTouchListener(listener);
+        setOnKeyListener(listener);
+        newGame();
+    }
+
+    public static int log2(int n) {
+        if (n <= 0) throw new IllegalArgumentException();
+        return (int) (Math.log(n) / Math.log(2));
+    }
+
     @Override
-    protected void onSizeChanged(int width, int height, int oldW, int oldH)
-    {
+    protected void onSizeChanged(int width, int height, int oldW, int oldH) {
         super.onSizeChanged(width, height, oldW, oldH);
         getLayout(width, height);
         createBackgroundBitmap(width, height);
     }
-    
+
     @Override
     public void onDraw(Canvas canvas) {
         //Reset the transparency of the screen
@@ -161,7 +177,7 @@ public class MainView extends View
         drawCells(canvas);
 
         drawEndGameState(canvas);
-        
+
         if (game.aGrid.isAnimationActive()) {
             // Refresh when animation running
             invalidate(startingX, startingY, endingX, endingY);
@@ -179,9 +195,9 @@ public class MainView extends View
     }
 
     public void drawCellText(Canvas canvas, int value, int sX, int sY) {
-        int n = tileTexts[value - 1].codePointCount(0,tileTexts[value - 1].length());
-        float i = textSize / (float)(n > 1 ? n * 0.51 : 1);
-        paint.setTextSize(n == 1 && tileTexts[value - 1].length() == 2 ? (float)(i * 1.6) : i);
+        int n = tileTexts[value - 1].codePointCount(0, tileTexts[value - 1].length());
+        float i = textSize / (float) (n > 1 ? n * 0.51 : 1);
+        paint.setTextSize(n == 1 && tileTexts[value - 1].length() == 2 ? (float) (i * 1.6) : i);
         paintOrder.setTextSize((float) (textSize / 2.5));
         int textShiftY = centerText();
         if (value >= 3) {
@@ -256,7 +272,7 @@ public class MainView extends View
         paint.setColor(TEXT_BLACK);
         paint.setTextAlign(Paint.Align.LEFT);
         int textShiftY = centerText() * 2;
-        int headerStartY = sYAll - textShiftY + (int)headerTextSize ;
+        int headerStartY = sYAll - textShiftY + (int) headerTextSize;
         canvas.drawText(getResources().getString(R.string.app_name), startingX, bodyStartYAll, paint);
     }
 
@@ -275,8 +291,8 @@ public class MainView extends View
 
     public void drawBackgroundGrid(Canvas canvas) {
         // Outputting the game grid
-        for (int xx = 0; xx < game.numSquaresX; xx++) {
-            for (int yy = 0; yy < game.numSquaresY; yy++) {
+        for (int xx = 0; xx < MainGame.numSquaresX; xx++) {
+            for (int yy = 0; yy < MainGame.numSquaresY; yy++) {
                 int sX = startingX + gridWidth + (cellSize + gridWidth) * xx;
                 int eX = sX + cellSize;
                 int sY = startingY + gridWidth + (cellSize + gridWidth) * yy;
@@ -289,8 +305,8 @@ public class MainView extends View
 
     public void drawCells(Canvas canvas) {
         // Outputting the individual cells
-        for (int xx = 0; xx < game.numSquaresX; xx++) {
-            for (int yy = 0; yy < game.numSquaresY; yy++) {
+        for (int xx = 0; xx < MainGame.numSquaresX; xx++) {
+            for (int yy = 0; yy < MainGame.numSquaresY; yy++) {
                 int sX = startingX + gridWidth + (cellSize + gridWidth) * xx;
                 int eX = sX + cellSize;
                 int sY = startingY + gridWidth + (cellSize + gridWidth) * yy;
@@ -327,16 +343,16 @@ public class MainView extends View
                             drawDrawable(canvas, cellRectangle[index], (int) (sX + cellScaleSize), (int) (sY + cellScaleSize), (int) (eX - cellScaleSize), (int) (eY - cellScaleSize));
                         } else if (aCell.getAnimationType() == MainGame.MERGE_ANIMATION) { // Merging Animation
                             double percentDone = aCell.getPercentageDone();
-                            
+
                             float currentVelocity;
-                            
+
                             // Accelerate and then moderate
                             if (percentDone < 0.5) {
                                 currentVelocity = (float) (MERGING_ACCELERATION * percentDone); // v = at
                             } else {
                                 currentVelocity = (float) (MAX_VELOCITY - MERGING_ACCELERATION * (percentDone - 0.5)); // v = v0 - at
                             }
-                            
+
                             float textScaleSize = (float) (1 + currentVelocity * percentDone); // s = vt
 
                             float cellScaleSize = cellSize / 2 * (1 - textScaleSize);
@@ -353,7 +369,7 @@ public class MainView extends View
                             int currentY = currentTile.getY();
                             int dX = (int) ((currentX - previousX) * (cellSize + gridWidth) * (percentDone - 1) * (percentDone - 1) * -MOVING_ACCELERATION);
                             int dY = (int) ((currentY - previousY) * (cellSize + gridWidth) * (percentDone - 1) * (percentDone - 1) * -MOVING_ACCELERATION);
-                            
+
                             drawDrawable(canvas, cellRectangle[tempIndex], sX + dX, sY + dY, eX + dX, eY + dY);
                         }
                         animated = true;
@@ -380,7 +396,7 @@ public class MainView extends View
         // Displaying game over
         if (game.won) {
             lightUpRectangle.setAlpha((int) (127 * alphaChange));
-            drawDrawable(canvas, lightUpRectangle ,startingX, startingY, endingX, endingY);
+            drawDrawable(canvas, lightUpRectangle, startingX, startingY, endingX, endingY);
             lightUpRectangle.setAlpha(255);
             paint.setColor(TEXT_WHITE);
             paint.setAlpha((int) (255 * alphaChange));
@@ -412,10 +428,9 @@ public class MainView extends View
         drawInstructions(canvas);
     }
 
-
     public void tick() {
         currentTime = System.nanoTime();
-        
+
         try {
             game.aGrid.tickAll(currentTime - lastFPSTime);
         } catch (ConcurrentModificationException e) {
@@ -428,18 +443,13 @@ public class MainView extends View
         lastFPSTime = System.nanoTime();
     }
 
-    public static int log2(int n){
-        if(n <= 0) throw new IllegalArgumentException();
-        return (int) (Math.log(n) / Math.log(2));
-    }
-
     public void getLayout(int width, int height) {
-        cellSize = Math.min(width / (game.numSquaresX + 1), height / (game.numSquaresY + 3));
+        cellSize = Math.min(width / (MainGame.numSquaresX + 1), height / (MainGame.numSquaresY + 3));
         gridWidth = cellSize / 7;
         screenMiddleX = width / 2;
         screenMiddleY = height / 2;
         boardMiddleX = screenMiddleX;
-        boardMiddleY = screenMiddleY  + cellSize / 2;
+        boardMiddleY = screenMiddleY + cellSize / 2;
         iconSize = cellSize / 2;
 
         paint.setTextAlign(Paint.Align.CENTER);
@@ -454,8 +464,8 @@ public class MainView extends View
         iconPaddingSize = (int) (textSize / 5);
 
         //Grid Dimensions
-        halfNumSquaresX = game.numSquaresX / 2d;
-        halfNumSquaresY = game.numSquaresY / 2d;
+        halfNumSquaresX = MainGame.numSquaresX / 2d;
+        halfNumSquaresY = MainGame.numSquaresY / 2d;
 
         startingX = (int) (boardMiddleX - (cellSize + gridWidth) * halfNumSquaresX - gridWidth / 2);
         endingX = (int) (boardMiddleX + (cellSize + gridWidth) * halfNumSquaresX + gridWidth / 2);
@@ -482,7 +492,7 @@ public class MainView extends View
         getScreenSize = false;
         initRectangleDrawables();
     }
-    
+
     public void initRectangleDrawables() {
         paint.setTextSize(textSize);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -494,30 +504,31 @@ public class MainView extends View
         tileTexts = s.split(s.contains(" ") ? " " : "\\B");
         for (int i = 0; i < tileTexts.length; i++) {
             s = tileTexts[i];
-            if (s.startsWith("#"))  tileTexts[i] = new String(new int[]{new Integer(s.substring(1))},0,1);
+            if (s.startsWith("#"))
+                tileTexts[i] = new String(new int[]{new Integer(s.substring(1))}, 0, 1);
         }
         maxValue = (int) Math.pow(2, tileTexts.length);
 
         cellRectangle = new Drawable[12];
-        cellRectangle[0] =  resources.getDrawable(R.drawable.cell_rectangle);
-        cellRectangle[1] =  resources.getDrawable(R.drawable.cell_rectangle_2);
-        cellRectangle[2] =  resources.getDrawable(R.drawable.cell_rectangle_4);
-        cellRectangle[3] =  resources.getDrawable(R.drawable.cell_rectangle_8);
-        cellRectangle[4] =  resources.getDrawable(R.drawable.cell_rectangle_16);
-        cellRectangle[5] =  resources.getDrawable(R.drawable.cell_rectangle_32);
-        cellRectangle[6] =  resources.getDrawable(R.drawable.cell_rectangle_64);
-        cellRectangle[7] =  resources.getDrawable(R.drawable.cell_rectangle_128);
-        cellRectangle[8] =  resources.getDrawable(R.drawable.cell_rectangle_256);
-        cellRectangle[9] =  resources.getDrawable(R.drawable.cell_rectangle_512);
+        cellRectangle[0] = resources.getDrawable(R.drawable.cell_rectangle);
+        cellRectangle[1] = resources.getDrawable(R.drawable.cell_rectangle_2);
+        cellRectangle[2] = resources.getDrawable(R.drawable.cell_rectangle_4);
+        cellRectangle[3] = resources.getDrawable(R.drawable.cell_rectangle_8);
+        cellRectangle[4] = resources.getDrawable(R.drawable.cell_rectangle_16);
+        cellRectangle[5] = resources.getDrawable(R.drawable.cell_rectangle_32);
+        cellRectangle[6] = resources.getDrawable(R.drawable.cell_rectangle_64);
+        cellRectangle[7] = resources.getDrawable(R.drawable.cell_rectangle_128);
+        cellRectangle[8] = resources.getDrawable(R.drawable.cell_rectangle_256);
+        cellRectangle[9] = resources.getDrawable(R.drawable.cell_rectangle_512);
         cellRectangle[10] = resources.getDrawable(R.drawable.cell_rectangle_1024);
         cellRectangle[11] = resources.getDrawable(R.drawable.cell_rectangle_2048);
         // The last drawable
         Drawable lastDrawable = cellRectangle[11];
-        
+
         // Array
         Drawable[] newArray = new Drawable[tileTexts.length + 1];
         newArray[0] = cellRectangle[0];
-        
+
         // Draw the rectangles into cache
         for (int i = 1; i < tileTexts.length + 1; i++) {
             Drawable rect;
@@ -533,22 +544,22 @@ public class MainView extends View
             rect = new BitmapDrawable(bitmap);
             newArray[i] = rect;
         }
-        
+
         cellRectangle = newArray;
     }
 
     public int centerText() {
-        return  (int) ((paint.descent() + paint.ascent()) / 2);
+        return (int) ((paint.descent() + paint.ascent()) / 2);
     }
 
-    public void newGame(){
+    public void newGame() {
         Resources resources = getResources();
         // Inverse mode
         inverseMode = SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE, false);
 
         int i = new Integer(SettingsProvider.getString(SettingsProvider.KEY_ROWS, "4"));
-        game.numSquaresX = i;
-        game.numSquaresY = i;
+        MainGame.numSquaresX = i;
+        MainGame.numSquaresY = i;
         if (!inverseMode) {
             instructions = resources.getString(R.string.instructions);
         } else {
@@ -557,52 +568,20 @@ public class MainView extends View
         game.newGame();
     }
 
-    public MainView(Context context) {
-        super(context);
-        Resources resources = context.getResources();
-
-        //Loading resources
-        game = new MainGame(context, this);
-
-        try {
-            highScore = resources.getString(R.string.high_score);
-            score = resources.getString(R.string.score);
-            youWin = resources.getString(R.string.you_win);
-            gameOver = resources.getString(R.string.game_over);
-            backgroundRectangle =  resources.getDrawable(R.drawable.background_rectangle);
-            settingsIcon = resources.getDrawable(R.drawable.ic_action_refresh);
-            lightUpRectangle = resources.getDrawable(R.drawable.light_up_rectangle);
-            fadeRectangle = resources.getDrawable(R.drawable.fade_rectangle);
-            TEXT_WHITE = resources.getColor(R.color.text_white);
-            TEXT_BLACK = resources.getColor(R.color.text_black);
-            TEXT_BROWN = resources.getColor(R.color.text_brown);
-            backgroundColor = resources.getColor(R.color.background);
-            Typeface font = Typeface.createFromAsset(resources.getAssets(), "Symbola.ttf");
-            paint.setTypeface(font);
-            paint.setAntiAlias(true);
-        } catch (Exception e) {
-            System.out.println("Error getting assets?");
-        }
-        listener = new InputListener(this);
-        setOnTouchListener(listener);
-        setOnKeyListener(listener);
-        newGame();
-    }
-    
     public void startAi() {
         if (aiThread != null) {
             stopAi();
         }
-        
+
         ai = new AI(game);
         aiThread = new Thread(aiRunnable);
         aiThread.start();
         aiRunning = true;
     }
-    
+
     public void stopAi() {
         aiThread.interrupt();
-        
+
         aiThread = null;
         aiRunning = false;
     }

@@ -2,8 +2,8 @@ package com.osfans.android2048;
 
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.osfans.android2048.settings.SettingsProvider;
@@ -11,10 +11,11 @@ import com.osfans.android2048.settings.SettingsProvider;
 public class InputListener implements View.OnTouchListener, View.OnKeyListener {
 
     private static final int SWIPE_MIN_DISTANCE = 100;
+    private static final int RESET_STARTING = 10;
     private static int SWIPE_THRESHOLD_VELOCITY = 40;
     private static int MOVE_THRESHOLD = 250;
-    private static final int RESET_STARTING = 10;
-
+    MainView mView;
+    GestureDetector mGestureDetector;
     private float x;
     private float y;
     private float lastDx;
@@ -27,10 +28,6 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
     private int veryLastDirection = 1;
     private boolean moved = false;
 
-    MainView mView;
-
-    GestureDetector mGestureDetector;
-
     public InputListener(MainView view) {
         super();
         this.mView = view;
@@ -40,8 +37,8 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
                 try {
                     float fX = e1.getX() - e2.getX();
                     float fY = e1.getY() - e2.getY();
-                    Log.e("kyle", "fX="+fX+",fY="+fY+",vX="+velocityX+",vY="+velocityY);
-                    if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(fX) + SWIPE_MIN_DISTANCE/2 >= Math.abs(fY) && Math.abs(fX) > SWIPE_MIN_DISTANCE && Math.abs(fX) < MOVE_THRESHOLD * 2) {
+                    Log.e("kyle", "fX=" + fX + ",fY=" + fY + ",vX=" + velocityX + ",vY=" + velocityY);
+                    if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(fX) + SWIPE_MIN_DISTANCE / 2 >= Math.abs(fY) && Math.abs(fX) > SWIPE_MIN_DISTANCE && Math.abs(fX) < MOVE_THRESHOLD * 2) {
                         mView.game.move(fX > 0 ? 3 : 1);
                     } else if (Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(fY) > SWIPE_MIN_DISTANCE && Math.abs(fY) < MOVE_THRESHOLD * 2) {
                         mView.game.move(fY > 0 ? 0 : 2);
@@ -50,6 +47,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
                 }
                 return true;
             }
+
             @Override
             public boolean onSingleTapUp(MotionEvent event) {
 
@@ -62,7 +60,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
                     mView.game.newGame();
                 }
 
-                if (mView.inverseMode) {
+                if (MainView.inverseMode) {
                     for (Cell cell : mView.game.grid.getAvailableCells()) {
                         int xx = cell.getX();
                         int yy = cell.getY();
@@ -83,7 +81,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
             }
         });
     }
-    
+
     public static void loadSensitivity() {
         int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, 1);
         switch (sensitivity) {

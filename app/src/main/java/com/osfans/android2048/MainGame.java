@@ -10,34 +10,28 @@ import java.util.List;
 
 public class MainGame {
 
-    public Grid grid;
-    public AnimationGrid aGrid;
-    public boolean emulating = false;
-    static  int numSquaresX = 4;
-    static int numSquaresY = 4;
-    final int startTiles = 2;
-    
-    long score = 0;
-    long lastScore = 0;
-    long highScore = 0;
-    boolean won = false;
-    boolean lose = false;
-
-    Context mContext;
-
-    MainView mView;
-
     static final int SPAWN_ANIMATION = -1;
     static final int MOVE_ANIMATION = 0;
     static final int MERGE_ANIMATION = 1;
-
     static final int FADE_GLOBAL_ANIMATION = 0;
-
     static final long MOVE_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
     static final long SPAWN_ANIMATION_TIME = (int) (MainView.BASE_ANIMATION_TIME * 1.5);
     static final long NOTIFICATION_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME * 5;
     static final long NOTIFICATION_DELAY_TIME = MOVE_ANIMATION_TIME + SPAWN_ANIMATION_TIME;
     static final String HIGH_SCORE = "high score";
+    static int numSquaresX = 4;
+    static int numSquaresY = 4;
+    final int startTiles = 2;
+    public Grid grid;
+    public AnimationGrid aGrid;
+    public boolean emulating = false;
+    long score = 0;
+    long lastScore = 0;
+    long highScore = 0;
+    boolean won = false;
+    boolean lose = false;
+    Context mContext;
+    MainView mView;
 
     public MainGame(Context context, MainView view) {
         mContext = context;
@@ -72,13 +66,13 @@ public class MainGame {
             addRandomTile(grid.randomAvailableCell());
         }
     }
-    
+
     public void addRandomTile(Cell cell) {
         int value = Math.random() < 0.9 ? 2 : 4;
         Tile tile = new Tile(cell, value);
         grid.insertTile(tile);
         if (!emulating) aGrid.startAnimation(tile.getX(), tile.getY(), SPAWN_ANIMATION,
-                                             SPAWN_ANIMATION_TIME, MOVE_ANIMATION_TIME, null); //Direction: -1 = EXPANDING
+                SPAWN_ANIMATION_TIME, MOVE_ANIMATION_TIME, null); //Direction: -1 = EXPANDING
     }
 
     public void recordHighScore() {
@@ -109,17 +103,17 @@ public class MainGame {
         grid.field[cell.getX()][cell.getY()] = tile;
         tile.updatePosition(cell);
     }
-    
+
     public void saveState() {
         grid.saveTiles();
         lastScore = score;
     }
-    
+
     public void revertState() {
         aGrid = new AnimationGrid(numSquaresX, numSquaresY);
         grid.revertTiles();
         score = lastScore;
-        
+
         if (!emulating) {
             mView.refreshLastTime = true;
             mView.resyncTime();
@@ -127,9 +121,9 @@ public class MainGame {
         }
     }
 
-    public boolean move (int direction) {
+    public boolean move(int direction) {
         saveState();
-        
+
         if (!emulating) aGrid = new AnimationGrid(numSquaresX, numSquaresY);
         // 0: up, 1: right, 2: down, 3: left
         if (lose || won) {
@@ -142,8 +136,8 @@ public class MainGame {
 
         prepareTiles();
 
-        for (int xx: traversalsX) {
-            for (int yy: traversalsY) {
+        for (int xx : traversalsX) {
+            for (int yy : traversalsY) {
                 Cell cell = new Cell(xx, yy);
                 Tile tile = grid.getCellContent(cell);
 
@@ -182,7 +176,8 @@ public class MainGame {
                     } else {
                         moveTile(tile, positions[0]);
                         int[] extras = {xx, yy, 0};
-                        if (!emulating) aGrid.startAnimation(positions[0].getX(), positions[0].getY(), MOVE_ANIMATION, MOVE_ANIMATION_TIME, 0, extras); //Direction: 1 = MOVING NO MERGE
+                        if (!emulating)
+                            aGrid.startAnimation(positions[0].getX(), positions[0].getY(), MOVE_ANIMATION, MOVE_ANIMATION_TIME, 0, extras); //Direction: 1 = MOVING NO MERGE
                     }
 
                     if (!positionsEqual(cell, tile)) {
@@ -203,24 +198,24 @@ public class MainGame {
             }
 
         }
-        
+
         if (!emulating) {
             mView.resyncTime();
             mView.postInvalidate();
         }
-        
+
         return moved;
     }
 
     public void endGame() {
         if (emulating) return;
-        
+
         aGrid.startAnimation(-1, -1, FADE_GLOBAL_ANIMATION, NOTIFICATION_ANIMATION_TIME, NOTIFICATION_DELAY_TIME, null);
         if (score >= highScore) {
             highScore = score;
             recordHighScore();
         }
-        
+
         grid.canRevert = false;
     }
 
@@ -244,13 +239,13 @@ public class MainGame {
             Collections.reverse(traversals);
         }
 
-       return traversals;
+        return traversals;
     }
 
     public List<Integer> buildTraversalsY(Cell vector) {
         List<Integer> traversals = new ArrayList<Integer>();
 
-        for (int xx = 0; xx <numSquaresY; xx++) {
+        for (int xx = 0; xx < numSquaresY; xx++) {
             traversals.add(xx);
         }
         if (vector.getY() == 1) {
@@ -271,9 +266,11 @@ public class MainGame {
 
         return new Cell[]{previous, nextCell};
     }
+
     public boolean movesAvailable() {
         return grid.isCellsAvailable() || tileMatchesAvailable();
     }
+
     public boolean tileMatchesAvailable() {
         Tile tile;
 
@@ -302,10 +299,10 @@ public class MainGame {
     public boolean positionsEqual(Cell first, Cell second) {
         return first.getX() == second.getX() && first.getY() == second.getY();
     }
-    
+
     // Only for emulation
     @Override
-    public MainGame clone(){
+    public MainGame clone() {
         MainGame newGame = new MainGame(mContext, null);
 
         newGame.grid = grid.clone();
