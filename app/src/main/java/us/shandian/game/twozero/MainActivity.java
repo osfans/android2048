@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         view = new MainView(getBaseContext());
 
         // Restore state
-        SharedPreferences prefs = getSharedPreferences("state", Context.MODE_WORLD_READABLE);
+        SharedPreferences prefs = getSharedPreferences("state", 0);
         int size = prefs.getInt("size", 0);
         if (size == view.game.numSquaresX) {
             Tile[][] field = view.game.grid.field;
@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
         // If variety switched, do not save
         if (!save) return;
         
-        SharedPreferences prefs = getSharedPreferences("state", Context.MODE_WORLD_READABLE);
+        SharedPreferences prefs = getSharedPreferences("state", 0);
         SharedPreferences.Editor edit = prefs.edit();
         Tile[][] field = view.game.grid.field;
         String[] saveState = new String[field[0].length];
