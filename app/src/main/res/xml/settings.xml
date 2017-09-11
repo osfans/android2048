@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <ListPreference
-        android:key="settings_sensitivity"
-        android:title="@string/settings_sensitivity"
-        android:entries="@array/settings_sensitivity_entries"
-        android:entryValues="@array/settings_sensitivity_values" />
-    <ListPreference
-        android:key="settings_rows"
-        android:title="@string/settings_rows"
-        android:entries="@array/settings_rows_values"
-        android:entryValues="@array/settings_rows_values" />
-    <ListPreference
-        android:key="settings_order"
-        android:title="@string/settings_order"
-        android:entries="@array/settings_order_entries"
-        android:entryValues="@array/settings_order_values" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:key="settings_variety"
-        android:title="@string/settings_variety"
+        android:entries="@array/settings_sensitivity_entries"
+        android:entryValues="@array/settings_sensitivity_values"
+        android:key="settings_sensitivity"
+        android:title="@string/settings_sensitivity" />
+    <ListPreference
+        android:entries="@array/settings_rows_values"
+        android:entryValues="@array/settings_rows_values"
+        android:key="settings_rows"
+        android:title="@string/settings_rows" />
+    <ListPreference
+        android:entries="@array/settings_order_entries"
+        android:entryValues="@array/settings_order_values"
+        android:key="settings_order"
+        android:title="@string/settings_order" />
+
+    <ListPreference
         android:entries="@array/settings_variety_entries"
-        android:entryValues="@array/variety_entries" />
-    
+        android:entryValues="@array/variety_entries"
+        android:key="settings_variety"
+        android:title="@string/settings_variety" />
+
     <CheckBoxPreference
+        android:checked="false"
         android:key="settings_inverse_mode"
-        android:title="@string/settings_inverse_mode"
-        android:checked="false"/>
-    
+        android:title="@string/settings_inverse_mode" />
+
 </PreferenceScreen>

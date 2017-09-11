@@ -15,7 +15,6 @@
     <string name="settings_sensitivity_midium">中</string>
     <string name="settings_sensitivity_low">低</string>
     <string name="settings_variety">各種版本</string>
-    <string name="settings_variety_periodic_table_of_elements_first_twenty">原版2048</string>
     <string name="settings_inverse_mode">反轉模式</string>
     <string name="settings_order">顯示序號</string>
     <string name="settings_rows">行數</string>

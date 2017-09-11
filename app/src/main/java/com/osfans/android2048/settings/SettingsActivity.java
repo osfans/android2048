@@ -1,6 +1,5 @@
 package com.osfans.android2048.settings;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -113,10 +112,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     }
 
     private void clearState() {
-        getSharedPreferences("state", Context.MODE_WORLD_READABLE)
+        getSharedPreferences("state", 0)
                 .edit()
                 .remove("size")
-                .commit();
+                .apply();
         MainActivity.save = false;
     }
 }

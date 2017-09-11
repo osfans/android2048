@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">2048</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="new_game">New Game</string>
+    <string name="app_name" translatable="false">2048</string>
     <string name="high_score">HIGH SCORE</string>
     <string name="score">SCORE</string>
     <string name="instructions">Swipe to move.</string>
@@ -18,7 +16,6 @@
     <string name="settings_sensitivity_midium">Midium</string>
     <string name="settings_sensitivity_low">Low</string>
     <string name="settings_variety">Variety</string>
-    <string name="settings_variety_periodic_table_of_elements_first_twenty">Periodic Table Of Elements (First 20 elements)</string>
     <string name="settings_inverse_mode">Inverse Mode</string>
     <string name="settings_order">Show Order</string>
     <string name="settings_order_none">None</string>

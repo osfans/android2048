@@ -31,18 +31,18 @@ public class SettingsProvider {
     }
 
     public static void putInt(String key, int value) {
-        prefs.edit().putInt(key, value).commit();
+        prefs.edit().putInt(key, value).apply();
     }
 
     public static void putBoolean(String key, boolean value) {
-        prefs.edit().putBoolean(key, value).commit();
+        prefs.edit().putBoolean(key, value).apply();
     }
 
     public static void putString(String key, String value) {
-        prefs.edit().putString(key, value).commit();
+        prefs.edit().putString(key, value).apply();
     }
 
     public static void remove(String key) {
-        prefs.edit().remove(key).commit();
+        prefs.edit().remove(key).apply();
     }
 }

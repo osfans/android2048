@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-def tagCmd = 'git describe develop --tags'
+def tagCmd = 'git describe --tags'
 def tag = tagCmd.execute().text.trim()
 def date = new Date().format('yyyyMMdd').toInteger()
 
@@ -10,15 +10,15 @@ android {
 
     defaultConfig {
         applicationId "com.osfans.android2048"
-        minSdkVersion 4
+        minSdkVersion 14
         targetSdkVersion 26
         versionCode date
         versionName "$tag-$date"
     }
 
     signingConfigs {
-       release {
-       }
+        release {
+        }
     }
 
     buildTypes {
@@ -29,13 +29,14 @@ android {
         }
     }
 
-    def propsFile = rootProject.file('gradle.properties') //store release config in gradle.properties
+    def propsFile = rootProject.file('gradle.properties')
+    //store release config in gradle.properties
     def configName = 'release'
 
     if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
         def props = new Properties()
         props.load(new FileInputStream(propsFile))
-        if (props!=null && props.containsKey('storeFile')) {
+        if (props != null && props.containsKey('storeFile')) {
             android.signingConfigs[configName].storeFile = rootProject.file(props['storeFile'])
             android.signingConfigs[configName].storePassword = props['storePassword']
             android.signingConfigs[configName].keyAlias = props['keyAlias']

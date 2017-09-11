@@ -505,7 +505,7 @@ public class MainView extends View {
         for (int i = 0; i < tileTexts.length; i++) {
             s = tileTexts[i];
             if (s.startsWith("#"))
-                tileTexts[i] = new String(new int[]{new Integer(s.substring(1))}, 0, 1);
+                tileTexts[i] = new String(new int[]{Integer.valueOf(s.substring(1))}, 0, 1);
         }
         maxValue = (int) Math.pow(2, tileTexts.length);
 
@@ -557,7 +557,7 @@ public class MainView extends View {
         // Inverse mode
         inverseMode = SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE, false);
 
-        int i = new Integer(SettingsProvider.getString(SettingsProvider.KEY_ROWS, "4"));
+        int i = Integer.valueOf(SettingsProvider.getString(SettingsProvider.KEY_ROWS, "4"));
         MainGame.numSquaresX = i;
         MainGame.numSquaresY = i;
         if (!inverseMode) {
