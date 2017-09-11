@@ -1,4 +1,4 @@
-package us.shandian.game.twozero.settings;
+package com.osfans.android2048.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;

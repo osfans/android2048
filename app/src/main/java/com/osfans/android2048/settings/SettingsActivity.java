@@ -1,4 +1,4 @@
-package us.shandian.game.twozero.settings;
+package com.osfans.android2048.settings;
 
 import android.preference.PreferenceActivity;
 import android.preference.ListPreference;
@@ -9,10 +9,10 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.os.Bundle;
 
-import us.shandian.game.twozero.R;
-import us.shandian.game.twozero.InputListener;
-import us.shandian.game.twozero.MainActivity;
-import us.shandian.game.twozero.MainView;
+import com.osfans.android2048.R;
+import com.osfans.android2048.InputListener;
+import com.osfans.android2048.MainActivity;
+import com.osfans.android2048.MainView;
 
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener
 {

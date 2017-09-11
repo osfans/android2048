@@ -1,4 +1,4 @@
-package us.shandian.game.twozero;
+package com.osfans.android2048;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.ConcurrentModificationException;
 
-import us.shandian.game.twozero.settings.SettingsProvider;
+import com.osfans.android2048.settings.SettingsProvider;
 
 public class MainView extends View
 {

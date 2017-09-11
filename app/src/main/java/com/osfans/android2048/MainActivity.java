@@ -1,4 +1,4 @@
-package us.shandian.game.twozero;
+package com.osfans.android2048;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.view.WindowManager;
 
-import us.shandian.game.twozero.settings.SettingsProvider;
-import us.shandian.game.twozero.settings.SettingsActivity;
+import com.osfans.android2048.settings.SettingsProvider;
+import com.osfans.android2048.settings.SettingsActivity;
 
 public class MainActivity extends Activity {
 

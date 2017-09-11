@@ -1,4 +1,4 @@
-package us.shandian.game.twozero;
+package com.osfans.android2048;
 
 public class AnimationCell extends Cell {
     private int animationType;

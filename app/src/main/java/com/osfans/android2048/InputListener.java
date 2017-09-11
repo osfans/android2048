@@ -1,4 +1,4 @@
-package us.shandian.game.twozero;
+package com.osfans.android2048;
 
 import android.util.Log;
 import android.view.GestureDetector;
@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 import android.view.KeyEvent;
 import android.view.View;
 
-import us.shandian.game.twozero.settings.SettingsProvider;
+import com.osfans.android2048.settings.SettingsProvider;
 
 public class InputListener implements View.OnTouchListener, View.OnKeyListener {
 
