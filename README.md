@@ -3,7 +3,6 @@
 
 ## 简介
 - 源于[fengmoxi的2048](https://github.com/fengmoxi/2048_android)
-- [APK下载](https://github.com/osfans/2048-android/raw/master/2048.apk)
 - 系统要求：Android1.6~
 - 阶数：3~7
 - 任务：128~2048~2147483648
