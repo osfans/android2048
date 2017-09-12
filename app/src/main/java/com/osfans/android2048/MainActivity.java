@@ -129,6 +129,7 @@ public class MainActivity extends Activity {
         Tile[][] field = view.game.grid.field;
         String[] saveState = new String[field[0].length];
         for (int xx = 0; xx < field.length; xx++) {
+            saveState[xx] = "";
             for (int yy = 0; yy < field[0].length; yy++) {
                 if (field[xx][yy] != null) {
                     saveState[xx] += String.valueOf(field[xx][yy].getValue());

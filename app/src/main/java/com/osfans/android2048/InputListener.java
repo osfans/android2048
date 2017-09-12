@@ -1,6 +1,5 @@
 package com.osfans.android2048;
 
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -37,7 +36,6 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
                 try {
                     float fX = e1.getX() - e2.getX();
                     float fY = e1.getY() - e2.getY();
-                    Log.e("kyle", "fX=" + fX + ",fY=" + fY + ",vX=" + velocityX + ",vY=" + velocityY);
                     if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(fX) + SWIPE_MIN_DISTANCE / 2 >= Math.abs(fY) && Math.abs(fX) > SWIPE_MIN_DISTANCE && Math.abs(fX) < MOVE_THRESHOLD * 2) {
                         mView.game.move(fX > 0 ? 3 : 1);
                     } else if (Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(fY) > SWIPE_MIN_DISTANCE && Math.abs(fY) < MOVE_THRESHOLD * 2) {
