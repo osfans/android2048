@@ -273,7 +273,7 @@ public class MainView extends View {
         paint.setTextAlign(Paint.Align.LEFT);
         int textShiftY = centerText() * 2;
         int headerStartY = sYAll - textShiftY + (int) headerTextSize;
-        canvas.drawText(getResources().getString(R.string.app_name), startingX, bodyStartYAll, paint);
+        canvas.drawText("2048", startingX, bodyStartYAll, paint);
     }
 
     public void drawInstructions(Canvas canvas) {

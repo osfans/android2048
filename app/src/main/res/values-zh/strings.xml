@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">2048方言版</string>
     <string name="high_score">最高分</string>
     <string name="score">得分</string>
     <string name="instructions">移動合併相同的滑塊.</string>
