@@ -3,6 +3,7 @@ package com.osfans.android2048;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,12 +57,28 @@ public class MainActivity extends Activity {
         view.initRectangleDrawables();
     }
 
+    public void initTitle () {
+        Resources resources = getResources();
+        String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
+        String[] vars = resources.getStringArray(R.array.variety_entries);
+        String[] varietySummaries = resources.getStringArray(R.array.settings_variety_entries);
+        int i = 0;
+        for (String var: vars) {
+            if (var.contentEquals(s)) {
+                setTitle(varietySummaries[i]);
+                return;
+            }
+            i++;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSelf = this;
         SettingsProvider.initPreferences(this);
         InputListener.loadSensitivity();
+        initTitle();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
