@@ -120,6 +120,7 @@ public class MainView extends View {
 
     public MainView(Context context) {
         super(context);
+        setFocusable(true);
         Resources resources = context.getResources();
 
         //Loading resources
