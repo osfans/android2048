@@ -494,12 +494,7 @@ public class MainView extends View {
 
         // Tile texts
         String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
-        tileTexts = s.split(s.contains(" ") ? " " : "\\B");
-        for (int i = 0; i < tileTexts.length; i++) {
-            s = tileTexts[i];
-            if (s.startsWith("#"))
-                tileTexts[i] = new String(new int[]{Integer.valueOf(s.substring(1))}, 0, 1);
-        }
+        tileTexts = s.split(s.contains(" ") ? " +" : "\\B");
         maxValue = (int) Math.pow(2, tileTexts.length);
 
         cellRectangle = new Drawable[12];
