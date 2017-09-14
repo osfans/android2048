@@ -83,12 +83,12 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
             mVariety.setSummary(varietySummaries[variety]);
             SettingsProvider.putString(SettingsProvider.KEY_VARIETY, (String) newValue);
 
-            MainActivity.getInstance().newCell();
+            MainActivity.getInstance().newGame();
             MainActivity.getInstance().setTitle(varietySummaries[variety]);
             return true;
         } else if (preference == mCustomVariety) {
             SettingsProvider.putString(SettingsProvider.KEY_CUSTOM_VARIETY, (String) newValue);
-            MainActivity.getInstance().newCell();
+            MainActivity.getInstance().newGame();
             return true;
         } else if (preference == mInverse) {
             boolean inverse = (Boolean) newValue;

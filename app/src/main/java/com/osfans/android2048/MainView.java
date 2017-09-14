@@ -266,7 +266,7 @@ public class MainView extends View {
         paint.setTextAlign(Paint.Align.LEFT);
         int textShiftY = centerText() * 2;
         int headerStartY = sYAll - textShiftY + (int) headerTextSize;
-        canvas.drawText("2048", startingX, bodyStartYAll, paint);
+        canvas.drawText(String.valueOf(maxValue), startingX, bodyStartYAll, paint);
     }
 
     public void drawInstructions(Canvas canvas) {
@@ -450,7 +450,7 @@ public class MainView extends View {
         titleTextSize = textSize / 3;
         bodyTextSize = (int) (textSize / 1.5);
         instructionsTextSize = (int) (textSize / 1.5);
-        headerTextSize = textSize * 2;
+        headerTextSize = Math.min(textSize * 2, cellSize * cellSize * 2 / Math.max(cellSize, paint.measureText(String.valueOf(maxValue))));
         gameOverTextSize = textSize * 2;
         textPaddingSize = (int) (textSize / 3);
         iconPaddingSize = (int) (textSize / 5);
