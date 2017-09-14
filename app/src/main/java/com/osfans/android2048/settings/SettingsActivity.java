@@ -97,7 +97,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         } else if (preference == mSystemFont) {
             boolean value = (Boolean) newValue;
             SettingsProvider.putBoolean(SettingsProvider.KEY_SYSTEM_FONT, value);
-            MainActivity.getInstance().newCell();
+            MainActivity.getInstance().newGame();
             return true;
         } else if (preference == mOrder) {
             int order = Integer.valueOf((String) newValue);
