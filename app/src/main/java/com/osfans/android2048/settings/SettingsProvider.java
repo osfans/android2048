@@ -12,6 +12,7 @@ public class SettingsProvider {
     public static String KEY_VARIETY = "settings_variety";
     public static String KEY_INVERSE_MODE = "settings_inverse_mode";
     public static String KEY_SYSTEM_FONT = "settings_system_font";
+    public static String KEY_CUSTOM_VARIETY = "settings_custom_variety";
 
     public static SharedPreferences prefs;
 

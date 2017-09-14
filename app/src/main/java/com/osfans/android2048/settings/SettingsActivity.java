@@ -17,6 +17,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     private ListPreference mSensitivity, mOrder, mRows;
     private ListPreference mVariety;
     private CheckBoxPreference mInverse, mSystemFont;
+    private Preference mCustomVariety;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         mVariety = (ListPreference) findPreference(SettingsProvider.KEY_VARIETY);
         mInverse = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INVERSE_MODE);
         mSystemFont = (CheckBoxPreference) findPreference(SettingsProvider.KEY_SYSTEM_FONT);
+        mCustomVariety = findPreference(SettingsProvider.KEY_CUSTOM_VARIETY);
 
         mSensitivity.setOnPreferenceChangeListener(this);
         mOrder.setOnPreferenceChangeListener(this);
@@ -38,6 +40,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         mVariety.setOnPreferenceChangeListener(this);
         mInverse.setOnPreferenceChangeListener(this);
         mSystemFont.setOnPreferenceChangeListener(this);
+        mCustomVariety.setOnPreferenceChangeListener(this);
 
         // Initialize values
         int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, 1);
@@ -58,6 +61,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         mVariety.setValueIndex(variety);
         String[] varietySummaries = getResources().getStringArray(R.array.settings_variety_entries);
         mVariety.setSummary(varietySummaries[variety]);
+        mCustomVariety.setEnabled(variety == varietySummaries.length - 1);
 
         mInverse.setChecked(SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE, false));
         mSystemFont.setChecked(SettingsProvider.getBoolean(SettingsProvider.KEY_SYSTEM_FONT, false));
@@ -75,11 +79,16 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         } else if (preference == mVariety) {
             int variety = mVariety.findIndexOfValue((String) newValue);
             String[] varietySummaries = getResources().getStringArray(R.array.settings_variety_entries);
+            mCustomVariety.setEnabled(variety == varietySummaries.length - 1);
             mVariety.setSummary(varietySummaries[variety]);
             SettingsProvider.putString(SettingsProvider.KEY_VARIETY, (String) newValue);
 
             MainActivity.getInstance().newCell();
             MainActivity.getInstance().setTitle(varietySummaries[variety]);
+            return true;
+        } else if (preference == mCustomVariety) {
+            SettingsProvider.putString(SettingsProvider.KEY_CUSTOM_VARIETY, (String) newValue);
+            MainActivity.getInstance().newCell();
             return true;
         } else if (preference == mInverse) {
             boolean inverse = (Boolean) newValue;

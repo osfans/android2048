@@ -27,9 +27,10 @@
         <item>6</item>
         <item>7</item>
     </string-array>
-    <string name="variety_entries_default" translatable="false">大胖子怕熱 雞蛋怕砑 小車子怕山 破扁擔怕試 文人怕武 回子怕肉 嗝食病怕喫 壞鞋子怕拔 螃蟹怕酒 陰溝洞怕塞 乖乖隆地咚</string>
-    <string-array name="variety_entries" translatable="false">
-        <item>2 4 8 16 32 64 128 256 512 1024 2048</item>
+    <string name="original_2048" translatable="false">2 4 8 16 32 64 128 256 512 1024 2048</string>
+    <string name="variety_entries_default" translatable="false">2</string>
+    <string-array name="variety_strings" translatable="false">
+        <item>@string/original_2048</item>
         <item>大胖子怕熱 雞蛋怕砑 小車子怕山 破扁擔怕試 文人怕武 回子怕肉 嗝食病怕喫 壞鞋子怕拔 螃蟹怕酒 陰溝洞怕塞 乖乖隆地咚</item>
         <item>歪戴帽子大阿哥 纏夾二先生 橋頭三阿爹 吐血四老倌 五叔叔 六嬸嬸 七巧妹子 八阿姨 九斤老太 十伯伯 蘇州閒話</item>
         <item>🀀 🀁 🀂 🀃 🀄 🀅 🀆</item>
@@ -46,6 +47,27 @@
         <item>通江止遇蟹臻山效果假宕梗曾流深咸</item>
         <item>立春 雨水 驚蟄 春分 清明 穀雨 立夏 小滿 芒種 夏至 小暑 大暑 立秋 處暑 白露 秋分 寒露 霜降 立冬 小雪 大雪 冬至 小寒 大寒</item>
         <item>2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 1048576 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456 536870912 1073741824 2147483648</item>
+        <item>@string/original_2048</item>
+    </string-array>
+    <string-array name="variety_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
     </string-array>
     <string-array name="settings_variety_entries" translatable="false">
         <item>原版(2048)</item>
@@ -65,5 +87,6 @@
         <item>16韻攝(65536)</item>
         <item>24節氣(16777216)</item>
         <item>終極版(2147483648)</item>
+        <item>@string/settings_custom_variety</item>
     </string-array>
 </resources>

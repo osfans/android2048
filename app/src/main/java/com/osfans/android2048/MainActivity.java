@@ -60,16 +60,9 @@ public class MainActivity extends Activity {
     public void initTitle () {
         Resources resources = getResources();
         String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
-        String[] vars = resources.getStringArray(R.array.variety_entries);
+        int i = Integer.valueOf(s);
         String[] varietySummaries = resources.getStringArray(R.array.settings_variety_entries);
-        int i = 0;
-        for (String var: vars) {
-            if (var.contentEquals(s)) {
-                setTitle(varietySummaries[i]);
-                return;
-            }
-            i++;
-        }
+        setTitle(varietySummaries[i]);
     }
 
     @Override

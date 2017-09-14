@@ -17,6 +17,7 @@
     <string name="settings_sensitivity_midium">Midium</string>
     <string name="settings_sensitivity_low">Low</string>
     <string name="settings_variety">Variety</string>
+    <string name="settings_custom_variety">Custom</string>
     <string name="settings_inverse_mode">Inverse Mode</string>
     <string name="settings_order">Show Order</string>
     <string name="settings_order_none">None</string>

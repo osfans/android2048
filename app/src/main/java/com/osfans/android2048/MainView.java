@@ -493,7 +493,13 @@ public class MainView extends View {
         Resources resources = getResources();
 
         // Tile texts
-        String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
+        int index = Integer.valueOf(SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default)));
+        String[] values = resources.getStringArray(R.array.variety_strings);
+        String s = "";
+        if (index == values.length - 1) { // custom
+            s = SettingsProvider.getString(SettingsProvider.KEY_CUSTOM_VARIETY, "");
+        }
+        if (s.length() == 0) s = values[index];
         tileTexts = s.split(s.contains(" ") ? " +" : "\\B");
         maxValue = (int) Math.pow(2, tileTexts.length);
 
