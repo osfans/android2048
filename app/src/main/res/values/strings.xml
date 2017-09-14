@@ -22,4 +22,5 @@
     <string name="settings_order_none">None</string>
     <string name="settings_rows">Row Number</string>
     <string name="settings_system_font">System Font</string>
+    <string name="settings_about">Project Homepage</string>
 </resources>

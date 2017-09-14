@@ -22,4 +22,5 @@
     <string name="settings_rows">階數</string>
     <string name="settings_order_none">不顯示</string>
     <string name="settings_system_font">系統字體</string>
+    <string name="settings_about">項目首頁</string>
 </resources>
