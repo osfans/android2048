@@ -2,10 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:entries="@array/settings_sensitivity_entries"
-        android:entryValues="@array/settings_sensitivity_values"
-        android:key="settings_sensitivity"
-        android:title="@string/settings_sensitivity" />
+        android:entries="@array/settings_variety_entries"
+        android:entryValues="@array/variety_values"
+        android:key="settings_variety"
+        android:title="@string/settings_variety" />
+
+    <EditTextPreference
+        android:key="settings_custom_variety"
+        android:defaultValue="@string/original_2048"
+        android:title="@string/settings_custom_variety" />
 
     <ListPreference
         android:entries="@array/settings_rows_values"
@@ -20,21 +25,16 @@
         android:key="settings_order"
         android:title="@string/settings_order" />
 
-    <ListPreference
-        android:entries="@array/settings_variety_entries"
-        android:entryValues="@array/variety_values"
-        android:key="settings_variety"
-        android:title="@string/settings_variety" />
-
-    <EditTextPreference
-        android:key="settings_custom_variety"
-        android:defaultValue="@string/original_2048"
-        android:title="@string/settings_custom_variety" />
-
     <CheckBoxPreference
         android:checked="false"
         android:key="settings_system_font"
         android:title="@string/settings_system_font" />
+
+    <ListPreference
+        android:entries="@array/settings_sensitivity_entries"
+        android:entryValues="@array/settings_sensitivity_values"
+        android:key="settings_sensitivity"
+        android:title="@string/settings_sensitivity" />
 
     <CheckBoxPreference
         android:checked="false"
