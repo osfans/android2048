@@ -171,10 +171,6 @@ public class MainView extends View {
 
         drawScoreText(canvas);
 
-        if ((game.won || game.lose) && !game.aGrid.isAnimationActive()) {
-            drawNewGameButton(canvas);
-        }
-
         drawCells(canvas);
 
         drawEndGameState(canvas);
@@ -255,16 +251,6 @@ public class MainView extends View {
         paint.setTextSize(bodyTextSize);
         paint.setColor(TEXT_WHITE);
         canvas.drawText("" + game.score, sXScore + textMiddleScore, bodyStartYAll, paint);
-    }
-
-    public void drawNewGameButton(Canvas canvas) {
-        if ((game.won || game.lose)) {
-            drawDrawable(canvas, lightUpRectangle, sXNewGame, sYIcons, sXNewGame + iconSize, sYIcons + iconSize);
-        } else {
-            drawDrawable(canvas, backgroundRectangle, sXNewGame, sYIcons, sXNewGame + iconSize, sYIcons + iconSize);
-        }
-        drawDrawable(canvas, settingsIcon, sXNewGame + iconPaddingSize, sYIcons + iconPaddingSize,
-                sXNewGame + iconSize - iconPaddingSize, sYIcons + iconSize - iconPaddingSize);
     }
 
     public void drawHeader(Canvas canvas) {
@@ -423,7 +409,6 @@ public class MainView extends View {
         Canvas canvas = new Canvas(background);
         canvas.drawColor(backgroundColor);
         drawHeader(canvas);
-        drawNewGameButton(canvas);
         drawBackground(canvas);
         drawBackgroundGrid(canvas);
         drawInstructions(canvas);

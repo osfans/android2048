@@ -11,6 +11,7 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_autorun">Auto Run</string>
     <string name="menu_stopautorun">Stop Auto Run</string>
+    <string name="menu_newgame">New Game</string>
     <string name="settings_sensitivity">Sensitivity</string>
     <string name="settings_sensitivity_high">High</string>
     <string name="settings_sensitivity_midium">Midium</string>

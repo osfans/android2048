@@ -130,6 +130,9 @@ public class MainActivity extends Activity {
             case R.id.menu_stopautorun:
                 view.stopAi();
                 return true;
+            case R.id.menu_newgame:
+                view.game.newGame();
+                return true;
         }
         return true;
     }

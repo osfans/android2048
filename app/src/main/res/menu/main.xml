@@ -23,4 +23,9 @@
         android:showAsAction="never"
         android:title="@string/menu_stopautorun" />
 
+    <item
+        android:id="@+id/menu_newgame"
+        android:enabled="true"
+        android:showAsAction="never"
+        android:title="@string/menu_newgame" />
 </menu>
