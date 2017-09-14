@@ -28,19 +28,21 @@
         <item>7</item>
     </string-array>
     <string name="original_2048" translatable="false">2 4 8 16 32 64 128 256 512 1024 2048</string>
-    <string name="variety_entries_default" translatable="false">2</string>
+    <string name="variety_entries_default" translatable="false">1</string>
     <string-array name="variety_strings" translatable="false">
         <item>@string/original_2048</item>
         <item>大胖子怕熱 雞蛋怕砑 小車子怕山 破扁擔怕試 文人怕武 回子怕肉 嗝食病怕喫 壞鞋子怕拔 螃蟹怕酒 陰溝洞怕塞 乖乖隆地咚</item>
         <item>歪戴帽子大阿哥 纏夾二先生 橋頭三阿爹 吐血四老倌 五叔叔 六嬸嬸 七巧妹子 八阿姨 九斤老太 十伯伯 蘇州閒話</item>
         <item>🀀 🀁 🀂 🀃 🀄 🀅 🀆</item>
+        <item>🀢  🀣  🀤  🀥  🀦  🀧  🀨  🀩</item>
         <item>☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷</item>
         <item>🀇 🀈 🀉 🀊 🀋 🀌 🀍 🀎 🀏 </item>
         <item>甲乙丙丁戊己庚辛壬癸</item>
         <item>子丑寅卯辰巳午未申酉戌亥</item>
         <item>🐀 🐂 🐅 🐇 🐉 🐍 🐎 🐏 🐒 🐓 🐕 🐖</item>
         <item>♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</item>
-        <item>夏 商 周 秦 漢 晉 隋 唐 宋 元 明 清 天</item>
+        <item>〡〢〣〤〥〦〧〨〩〸〹〺</item>
+        <item>夏商周秦漢晉隋唐宋元明清天</item>
         <item>宁錫徐常蘇通連淮鹽揚鎮泰宿</item>
         <item>🂡 🂢 🂣 🂤 🂥 🂦 🂧 🂨 🂩 🂪 🂫 🂭 🂮 🃟</item>
         <item>木火土金水林炎圭鍂沝森焱垚鑫淼</item>
@@ -68,24 +70,28 @@
         <item>15</item>
         <item>16</item>
         <item>17</item>
+        <item>18</item>
+        <item>19</item>
     </string-array>
     <string-array name="settings_variety_entries" translatable="false">
         <item>原版(2048)</item>
         <item>揚州話(2048)</item>
         <item>蘇州閒話(2048)</item>
         <item>麻將字牌(128)</item>
-        <item>八卦版(256)</item>
+        <item>麻將花牌(256)</item>
+        <item>八卦(256)</item>
         <item>麻將萬字(512)</item>
-        <item>天干版(1024)</item>
-        <item>地支版(4096)</item>
-        <item>12生肖(4096)</item>
-        <item>12星座(4096)</item>
+        <item>天干(1024)</item>
+        <item>地支(4096)</item>
+        <item>生肖(4096)</item>
+        <item>星座(4096)</item>
+        <item>蘇州碼子(4096)</item>
         <item>中國朝代(8192)</item>
         <item>江蘇城市(8192)</item>
-        <item>撲克版(16384)</item>
-        <item>五行版(32768)</item>
-        <item>16韻攝(65536)</item>
-        <item>24節氣(16777216)</item>
+        <item>撲克(16384)</item>
+        <item>五行(32768)</item>
+        <item>韻攝(65536)</item>
+        <item>節氣(16777216)</item>
         <item>終極版(2147483648)</item>
         <item>@string/settings_custom_variety</item>
     </string-array>
