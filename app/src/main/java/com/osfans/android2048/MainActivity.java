@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
             view.game.lose = prefs.getBoolean("lose", false);
         }
         setContentView(view);
+        initTitle();
     }
 
     public void newCell() {
@@ -71,7 +72,6 @@ public class MainActivity extends Activity {
         mSelf = this;
         SettingsProvider.initPreferences(this);
         InputListener.loadSensitivity();
-        initTitle();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);

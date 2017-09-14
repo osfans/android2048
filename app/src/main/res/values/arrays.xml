@@ -74,25 +74,25 @@
         <item>19</item>
     </string-array>
     <string-array name="settings_variety_entries" translatable="false">
-        <item>原版(2048)</item>
-        <item>揚州話(2048)</item>
-        <item>蘇州閒話(2048)</item>
-        <item>麻將字牌(128)</item>
-        <item>麻將花牌(256)</item>
-        <item>八卦(256)</item>
-        <item>麻將萬字(512)</item>
-        <item>天干(1024)</item>
-        <item>地支(4096)</item>
-        <item>生肖(4096)</item>
-        <item>星座(4096)</item>
-        <item>蘇州碼子(4096)</item>
-        <item>中國朝代(8192)</item>
-        <item>江蘇城市(8192)</item>
-        <item>撲克(16384)</item>
-        <item>五行(32768)</item>
-        <item>韻攝(65536)</item>
-        <item>節氣(16777216)</item>
-        <item>終極版(2147483648)</item>
+        <item>原版</item>
+        <item>揚州話</item>
+        <item>蘇州閒話</item>
+        <item>麻將字牌</item>
+        <item>麻將花牌</item>
+        <item>八卦</item>
+        <item>麻將萬字</item>
+        <item>天干</item>
+        <item>地支</item>
+        <item>生肖</item>
+        <item>星座</item>
+        <item>蘇州碼子</item>
+        <item>中國朝代</item>
+        <item>江蘇城市</item>
+        <item>撲克</item>
+        <item>五行</item>
+        <item>韻攝</item>
+        <item>節氣</item>
+        <item>終極版</item>
         <item>@string/settings_custom_variety</item>
     </string-array>
 </resources>

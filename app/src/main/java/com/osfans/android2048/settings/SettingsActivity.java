@@ -84,7 +84,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
             SettingsProvider.putString(SettingsProvider.KEY_VARIETY, (String) newValue);
 
             MainActivity.getInstance().newGame();
-            MainActivity.getInstance().setTitle(varietySummaries[variety]);
             return true;
         } else if (preference == mCustomVariety) {
             SettingsProvider.putString(SettingsProvider.KEY_CUSTOM_VARIETY, (String) newValue);
