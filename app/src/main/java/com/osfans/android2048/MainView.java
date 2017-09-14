@@ -580,4 +580,11 @@ public class MainView extends View {
         aiRunning = false;
     }
 
+    public void toggleAi() {
+        if (aiRunning) {
+            stopAi();
+            return;
+        }
+        startAi();
+    }
 }
