@@ -573,6 +573,7 @@ public class MainView extends View {
     }
 
     public void stopAi() {
+        if (!aiRunning) return;
         aiThread.interrupt();
 
         aiThread = null;

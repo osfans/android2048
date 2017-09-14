@@ -131,6 +131,7 @@ public class MainActivity extends Activity {
                 view.stopAi();
                 return true;
             case R.id.menu_newgame:
+                view.stopAi();
                 view.game.newGame();
                 return true;
         }
