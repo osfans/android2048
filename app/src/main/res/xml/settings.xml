@@ -25,6 +25,11 @@
 
     <CheckBoxPreference
         android:checked="false"
+        android:key="settings_system_font"
+        android:title="@string/settings_system_font" />
+
+    <CheckBoxPreference
+        android:checked="false"
         android:enabled="false"
         android:selectable="false"
         android:key="settings_inverse_mode"

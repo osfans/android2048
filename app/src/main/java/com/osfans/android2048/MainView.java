@@ -118,6 +118,13 @@ public class MainView extends View {
         }
     };
 
+    public void updateFont() {
+        boolean systemFont = SettingsProvider.getBoolean(SettingsProvider.KEY_SYSTEM_FONT, false);
+        Typeface font = null;
+        if (!systemFont) font = Typeface.createFromAsset(getResources().getAssets(), "Symbola.ttf");
+        paint.setTypeface(font);
+    }
+
     public MainView(Context context) {
         super(context);
         setFocusable(true);
@@ -139,9 +146,8 @@ public class MainView extends View {
             TEXT_BLACK = resources.getColor(R.color.text_black);
             TEXT_BROWN = resources.getColor(R.color.text_brown);
             backgroundColor = resources.getColor(R.color.background);
-            Typeface font = Typeface.createFromAsset(resources.getAssets(), "Symbola.ttf");
-            paint.setTypeface(font);
             paint.setAntiAlias(true);
+            updateFont();
         } catch (Exception e) {
             System.out.println("Error getting assets?");
         }
@@ -480,6 +486,7 @@ public class MainView extends View {
     }
 
     public void initRectangleDrawables() {
+        updateFont();
         paint.setTextSize(textSize);
         paint.setTextAlign(Paint.Align.CENTER);
 

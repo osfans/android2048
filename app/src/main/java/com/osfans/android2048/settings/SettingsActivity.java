@@ -16,7 +16,7 @@ import com.osfans.android2048.R;
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener {
     private ListPreference mSensitivity, mOrder, mRows;
     private ListPreference mVariety;
-    private CheckBoxPreference mInverse;
+    private CheckBoxPreference mInverse, mSystemFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         mRows = (ListPreference) findPreference(SettingsProvider.KEY_ROWS);
         mVariety = (ListPreference) findPreference(SettingsProvider.KEY_VARIETY);
         mInverse = (CheckBoxPreference) findPreference(SettingsProvider.KEY_INVERSE_MODE);
+        mSystemFont = (CheckBoxPreference) findPreference(SettingsProvider.KEY_SYSTEM_FONT);
 
         mSensitivity.setOnPreferenceChangeListener(this);
         mOrder.setOnPreferenceChangeListener(this);
         mRows.setOnPreferenceChangeListener(this);
         mVariety.setOnPreferenceChangeListener(this);
         mInverse.setOnPreferenceChangeListener(this);
+        mSystemFont.setOnPreferenceChangeListener(this);
 
         // Initialize values
         int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, 1);
@@ -58,6 +60,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         mVariety.setSummary(varietySummaries[variety]);
 
         mInverse.setChecked(SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE, false));
+        mSystemFont.setChecked(SettingsProvider.getBoolean(SettingsProvider.KEY_SYSTEM_FONT, false));
     }
 
     @Override
@@ -82,6 +85,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
             boolean inverse = (Boolean) newValue;
             SettingsProvider.putBoolean(SettingsProvider.KEY_INVERSE_MODE, inverse);
             MainView.inverseMode = inverse;
+            return true;
+        } else if (preference == mSystemFont) {
+            boolean value = (Boolean) newValue;
+            SettingsProvider.putBoolean(SettingsProvider.KEY_SYSTEM_FONT, value);
+            MainActivity.getInstance().newCell();
             return true;
         } else if (preference == mOrder) {
             int order = Integer.valueOf((String) newValue);
