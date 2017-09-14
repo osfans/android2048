@@ -25,6 +25,8 @@
 
     <CheckBoxPreference
         android:checked="false"
+        android:enabled="false"
+        android:selectable="false"
         android:key="settings_inverse_mode"
         android:title="@string/settings_inverse_mode" />
 
