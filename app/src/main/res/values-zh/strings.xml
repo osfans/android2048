@@ -3,9 +3,9 @@
     <string name="app_name">2048方言版</string>
     <string name="high_score">最高分</string>
     <string name="score">得分</string>
-    <string name="instructions">移動合併相同的滑塊.</string>
-    <string name="instructuons_inversed">触摸空白方块可以添加滑块.</string>
-    <string name="you_win">你赢了</string>
+    <string name="instructions">移動合併相同的滑塊</string>
+    <string name="instructuons_inversed">触摸空白方块可以添加滑块</string>
+    <string name="you_win">你贏了</string>
     <string name="game_over">遊戲結束</string>
     <string name="menu_undo">反悔</string>
     <string name="menu_settings">設置</string>
@@ -18,6 +18,6 @@
     <string name="settings_variety">各種版本</string>
     <string name="settings_inverse_mode">反轉模式</string>
     <string name="settings_order">顯示序號</string>
-    <string name="settings_rows">行數</string>
+    <string name="settings_rows">階數</string>
     <string name="settings_order_none">不顯示</string>
 </resources>
