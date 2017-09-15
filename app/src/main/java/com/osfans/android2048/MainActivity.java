@@ -87,18 +87,18 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
+        menu.findItem(R.id.menu_autorun).setCheckable(true);
         if (MainView.inverseMode) {
             menu.findItem(R.id.menu_undo).setEnabled(false);
             menu.findItem(R.id.menu_autorun).setEnabled(false);
         } else if (view.aiRunning) {
             menu.findItem(R.id.menu_undo).setEnabled(false);
             menu.findItem(R.id.menu_autorun).setEnabled(true);
-            menu.findItem(R.id.menu_autorun).setTitle(R.string.menu_stopautorun);
+            menu.findItem(R.id.menu_autorun).setChecked(true);
         } else {
             menu.findItem(R.id.menu_undo).setEnabled(view.game.grid.canRevert);
             menu.findItem(R.id.menu_autorun).setEnabled(true);
-            menu.findItem(R.id.menu_autorun).setTitle(R.string.menu_autorun);
+            menu.findItem(R.id.menu_autorun).setChecked(false);
         }
 
         return true;

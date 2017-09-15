@@ -9,8 +9,7 @@
     <string name="game_over">遊戲結束</string>
     <string name="menu_undo">反悔</string>
     <string name="menu_settings">設置</string>
-    <string name="menu_autorun">自動運行</string>
-    <string name="menu_stopautorun">停止自動運行</string>
+    <string name="menu_autorun">託管</string>
     <string name="menu_newgame">新遊戲</string>
     <string name="settings_sensitivity">靈敏度</string>
     <string name="settings_sensitivity_high">高</string>
