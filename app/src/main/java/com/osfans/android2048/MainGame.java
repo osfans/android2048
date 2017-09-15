@@ -68,7 +68,7 @@ public class MainGame {
     }
 
     public void addRandomTile(Cell cell) {
-        int value = Math.random() < 0.9 ? 2 : 4;
+        int value = Math.random() < 0.1 ? 2 : 4;
         Tile tile = new Tile(cell, value);
         grid.insertTile(tile);
         if (!emulating) aGrid.startAnimation(tile.getX(), tile.getY(), SPAWN_ANIMATION,

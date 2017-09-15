@@ -109,7 +109,7 @@ public class MainView extends View {
                 }
 
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     ai = null;
                     break;
