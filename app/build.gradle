@@ -5,13 +5,12 @@ def tag = tagCmd.execute().text.trim()
 def date = new Date().format('yyyyMMdd').toInteger()
 
 android {
-    compileSdkVersion 28
-    //buildToolsVersion "26.0.1"
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.osfans.android2048"
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode date
         versionName "$tag-$date"
     }
