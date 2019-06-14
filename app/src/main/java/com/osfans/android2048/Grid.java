@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class Grid {
 
-    public Tile[][] field;
-    public Tile[][] lastField;
-    public boolean canRevert = false;
+    Tile[][] field;
+    private Tile[][] lastField;
+    boolean canRevert = false;
 
-    int sizeX, sizeY;
+    private final int sizeX;
+    private final int sizeY;
 
-    public Grid(int sizeX, int sizeY) {
+    Grid(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         field = new Tile[sizeX][sizeY];
@@ -23,7 +24,7 @@ public class Grid {
         }
     }
 
-    public Cell randomAvailableCell() {
+    Cell randomAvailableCell() {
         ArrayList<Cell> availableCells = getAvailableCells();
         if (availableCells.size() >= 1) {
             return availableCells.get((int) Math.floor(Math.random() * availableCells.size()));
@@ -31,8 +32,8 @@ public class Grid {
         return null;
     }
 
-    public ArrayList<Cell> getAvailableCells() {
-        ArrayList<Cell> availableCells = new ArrayList<Cell>();
+    ArrayList<Cell> getAvailableCells() {
+        ArrayList<Cell> availableCells = new ArrayList<>();
         for (int xx = 0; xx < field.length; xx++) {
             for (int yy = 0; yy < field[0].length; yy++) {
                 if (field[xx][yy] == null) {
@@ -43,19 +44,19 @@ public class Grid {
         return availableCells;
     }
 
-    public boolean isCellsAvailable() {
+    boolean isCellsAvailable() {
         return (getAvailableCells().size() >= 1);
     }
 
-    public boolean isCellAvailable(Cell cell) {
+    boolean isCellAvailable(Cell cell) {
         return !isCellOccupied(cell);
     }
 
-    public boolean isCellOccupied(Cell cell) {
+    boolean isCellOccupied(Cell cell) {
         return (getCellContent(cell) != null);
     }
 
-    public Tile getCellContent(Cell cell) {
+    Tile getCellContent(Cell cell) {
         if (cell != null && isCellWithinBounds(cell)) {
             return field[cell.getX()][cell.getY()];
         } else {
@@ -63,7 +64,7 @@ public class Grid {
         }
     }
 
-    public Tile getCellContent(int x, int y) {
+    Tile getCellContent(int x, int y) {
         if (isCellWithinBounds(x, y)) {
             return field[x][y];
         } else {
@@ -71,25 +72,25 @@ public class Grid {
         }
     }
 
-    public boolean isCellWithinBounds(Cell cell) {
+    boolean isCellWithinBounds(Cell cell) {
         return 0 <= cell.getX() && cell.getX() < field.length
                 && 0 <= cell.getY() && cell.getY() < field[0].length;
     }
 
-    public boolean isCellWithinBounds(int x, int y) {
+    boolean isCellWithinBounds(int x, int y) {
         return 0 <= x && x < field.length
                 && 0 <= y && y < field[0].length;
     }
 
-    public void insertTile(Tile tile) {
+    void insertTile(Tile tile) {
         field[tile.getX()][tile.getY()] = tile;
     }
 
-    public void removeTile(Tile tile) {
+    void removeTile(Tile tile) {
         field[tile.getX()][tile.getY()] = null;
     }
 
-    public void saveTiles() {
+    void saveTiles() {
         canRevert = true;
 
         lastField = new Tile[sizeX][sizeY];
@@ -104,7 +105,7 @@ public class Grid {
         }
     }
 
-    public void revertTiles() {
+    void revertTiles() {
         canRevert = false;
 
         for (int xx = 0; xx < lastField.length; xx++) {

@@ -2,7 +2,7 @@
 <resources>
     <string-array name="settings_sensitivity_entries">
         <item>@string/settings_sensitivity_high</item>
-        <item>@string/settings_sensitivity_midium</item>
+        <item>@string/settings_sensitivity_medium</item>
         <item>@string/settings_sensitivity_low</item>
     </string-array>
     <string-array name="settings_sensitivity_values" translatable="false">

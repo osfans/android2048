@@ -13,8 +13,8 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
     private static final int RESET_STARTING = 10;
     private static int SWIPE_THRESHOLD_VELOCITY = 40;
     private static int MOVE_THRESHOLD = 250;
-    MainView mView;
-    GestureDetector mGestureDetector;
+    private final MainView mView;
+    private final GestureDetector mGestureDetector;
     private float x;
     private float y;
     private float lastDx;
@@ -27,7 +27,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
     private int veryLastDirection = 1;
     private boolean moved = false;
 
-    public InputListener(MainView view) {
+    InputListener(MainView view) {
         super();
         this.mView = view;
         mGestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -42,6 +42,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
                         mView.game.move(fY > 0 ? 0 : 2);
                     } else return false;
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return true;
             }
@@ -99,6 +100,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
     }
 
     public boolean onTouch(View view, MotionEvent event) {
+        view.performClick();
         mGestureDetector.onTouchEvent(event);
         return true;
     }
@@ -124,7 +126,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
         return false;
     }
 
-    public boolean inRange(float left, float check, float right) {
+    private boolean inRange(float left, float check, float right) {
         return (left <= check && check <= right);
     }
 

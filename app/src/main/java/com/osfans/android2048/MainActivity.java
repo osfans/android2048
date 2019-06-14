@@ -16,8 +16,8 @@ import com.osfans.android2048.settings.SettingsProvider;
 public class MainActivity extends Activity {
 
     public static boolean save = true;
-    static MainActivity mSelf;
-    public MainView view;
+    private static MainActivity mSelf;
+    private MainView view;
 
     public static MainActivity getInstance() {
         return mSelf;
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         view.initRectangleDrawables();
     }
 
-    public void initTitle () {
+    private void initTitle() {
         Resources resources = getResources();
         String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
         int i = Integer.valueOf(s);
@@ -87,18 +87,18 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_autorun).setCheckable(true);
+        menu.findItem(R.id.menu_auto_run).setCheckable(true);
         if (MainView.inverseMode) {
             menu.findItem(R.id.menu_undo).setEnabled(false);
-            menu.findItem(R.id.menu_autorun).setEnabled(false);
+            menu.findItem(R.id.menu_auto_run).setEnabled(false);
         } else if (view.aiRunning) {
             menu.findItem(R.id.menu_undo).setEnabled(false);
-            menu.findItem(R.id.menu_autorun).setEnabled(true);
-            menu.findItem(R.id.menu_autorun).setChecked(true);
+            menu.findItem(R.id.menu_auto_run).setEnabled(true);
+            menu.findItem(R.id.menu_auto_run).setChecked(true);
         } else {
             menu.findItem(R.id.menu_undo).setEnabled(view.game.grid.canRevert);
-            menu.findItem(R.id.menu_autorun).setEnabled(true);
-            menu.findItem(R.id.menu_autorun).setChecked(false);
+            menu.findItem(R.id.menu_auto_run).setEnabled(true);
+            menu.findItem(R.id.menu_auto_run).setChecked(false);
         }
 
         return true;
@@ -116,10 +116,10 @@ public class MainActivity extends Activity {
                 i.setClass(this, SettingsActivity.class);
                 startActivity(i);
                 return true;
-            case R.id.menu_autorun:
+            case R.id.menu_auto_run:
                 view.toggleAi();
                 return true;
-            case R.id.menu_newgame:
+            case R.id.menu_new_game:
                 view.stopAi();
                 view.game.newGame();
                 return true;

@@ -11,18 +11,18 @@ import java.util.Date;
  *
  */
 
-public class AI {
-    static final long MAX_CONSIDERING_TIME = 100;
-    static final float WEIGHT_SMOOTH = 0.1f, WEIGHT_MONO = 1.0f,
-            WEIGHT_EMPTY = 2.7f, WEIGHT_MAX = 1.0f,
-            WEIGHT_ISLANDS = 0.5f, WEIGHT_TWOANDFOUR = 2.5f;
-    MainGame mGame;
+class AI {
+    private static final long MAX_CONSIDERING_TIME = 100;
+    private static final float WEIGHT_SMOOTH = 0.1f, WEIGHT_MONO = 1.0f,
+            WEIGHT_EMPTY = 2.7f, WEIGHT_MAX = 1.0f;
+            //WEIGHT_ISLANDS = 0.5f, WEIGHT_TWOANDFOUR = 2.5f;
+    private final MainGame mGame;
 
-    public AI(MainGame game) {
+    AI(MainGame game) {
         mGame = game;
     }
 
-    public int getBestMove() {
+    int getBestMove() {
 
         int bestMove = 0;
         int depth = 0;
@@ -54,7 +54,7 @@ public class AI {
         int bestScore = 0;
 
         if (player == Player.DOCTOR) {
-            // The Doctoe's turn
+            // The Doctor's turn
             // Doctor wants to defeat the Daleks
             bestScore = alpha;
 
@@ -103,7 +103,7 @@ public class AI {
 
             int maxScore = Integer.MIN_VALUE;
 
-            ArrayList<Object[]> conditions = new ArrayList<Object[]>();
+            ArrayList<Object[]> conditions = new ArrayList<>();
 
             ArrayList<Cell> cells = game.grid.getAvailableCells();
 
@@ -170,7 +170,7 @@ public class AI {
     // Evaluate how is it if we take the step
     private int evaluate(MainGame game) {
         int smooth = getSmoothness(game);
-        int mono = getMonotonticity(game);
+        int mono = getMonotonicity(game);
         int empty = game.grid.getAvailableCells().size();
         int max = getMaxValue(game);
         //int islands = countIslands(game);
@@ -212,7 +212,7 @@ public class AI {
     }
 
     // How monotonic the grid is
-    private int getMonotonticity(MainGame game) {
+    private int getMonotonicity(MainGame game) {
         int[] totals = {0, 0, 0, 0};
 
         // Up-down
@@ -329,6 +329,7 @@ public class AI {
         }
     }
 
+    /*
     private int countTwosAndFours(MainGame game) {
         int num = 0;
         for (int x = 0; x < MainGame.numSquaresX; x++) {
@@ -345,6 +346,7 @@ public class AI {
         }
         return num;
     }
+    */
 
     enum Player {
         DOCTOR,

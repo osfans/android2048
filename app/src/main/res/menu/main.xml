@@ -12,14 +12,14 @@
         android:title="@string/menu_settings" />
 
     <item
-        android:id="@+id/menu_autorun"
+        android:id="@+id/menu_auto_run"
         android:enabled="true"
         android:showAsAction="never"
-        android:title="@string/menu_autorun" />
+        android:title="@string/menu_auto_run" />
 
     <item
-        android:id="@+id/menu_newgame"
+        android:id="@+id/menu_new_game"
         android:enabled="true"
         android:showAsAction="never"
-        android:title="@string/menu_newgame" />
+        android:title="@string/menu_new_game" />
 </menu>

@@ -4,17 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SettingsProvider {
-    public static String KEY_PREFERENCES = "preferences";
+    private static final String KEY_PREFERENCES = "preferences";
 
-    public static String KEY_SENSITIVITY = "settings_sensitivity";
-    public static String KEY_ORDER = "settings_order";
-    public static String KEY_ROWS = "settings_rows";
-    public static String KEY_VARIETY = "settings_variety";
-    public static String KEY_INVERSE_MODE = "settings_inverse_mode";
-    public static String KEY_SYSTEM_FONT = "settings_system_font";
-    public static String KEY_CUSTOM_VARIETY = "settings_custom_variety";
+    public static final String KEY_SENSITIVITY = "settings_sensitivity";
+    public static final String KEY_ORDER = "settings_order";
+    public static final String KEY_ROWS = "settings_rows";
+    public static final String KEY_VARIETY = "settings_variety";
+    public static final String KEY_INVERSE_MODE = "settings_inverse_mode";
+    public static final String KEY_SYSTEM_FONT = "settings_system_font";
+    public static final String KEY_CUSTOM_VARIETY = "settings_custom_variety";
 
-    public static SharedPreferences prefs;
+    private static SharedPreferences prefs;
 
     public static void initPreferences(Context context) {
         prefs = context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_MULTI_PROCESS);
@@ -32,19 +32,22 @@ public class SettingsProvider {
         return prefs.getString(key, defaultValue);
     }
 
-    public static void putInt(String key, int value) {
+    static void putInt(String key, int value) {
         prefs.edit().putInt(key, value).apply();
     }
 
-    public static void putBoolean(String key, boolean value) {
+    static void putBoolean(String key, boolean value) {
         prefs.edit().putBoolean(key, value).apply();
     }
 
-    public static void putString(String key, String value) {
+    static void putString(String key, String value) {
         prefs.edit().putString(key, value).apply();
     }
 
-    public static void remove(String key) {
+    /*
+    static void remove(String key) {
         prefs.edit().remove(key).apply();
     }
+    */
+
 }

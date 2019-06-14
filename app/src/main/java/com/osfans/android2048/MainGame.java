@@ -8,37 +8,36 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainGame {
+class MainGame {
 
     static final int SPAWN_ANIMATION = -1;
     static final int MOVE_ANIMATION = 0;
     static final int MERGE_ANIMATION = 1;
     static final int FADE_GLOBAL_ANIMATION = 0;
-    static final long MOVE_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
-    static final long SPAWN_ANIMATION_TIME = (int) (MainView.BASE_ANIMATION_TIME * 1.5);
-    static final long NOTIFICATION_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME * 5;
-    static final long NOTIFICATION_DELAY_TIME = MOVE_ANIMATION_TIME + SPAWN_ANIMATION_TIME;
-    static final String HIGH_SCORE = "high score";
+    private static final long MOVE_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
+    private static final long SPAWN_ANIMATION_TIME = (int) (MainView.BASE_ANIMATION_TIME * 1.5);
+    private static final long NOTIFICATION_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME * 5;
+    private static final long NOTIFICATION_DELAY_TIME = MOVE_ANIMATION_TIME + SPAWN_ANIMATION_TIME;
+    private static final String HIGH_SCORE = "high score";
     static int numSquaresX = 4;
     static int numSquaresY = 4;
-    final int startTiles = 2;
-    public Grid grid;
-    public AnimationGrid aGrid;
-    public boolean emulating = false;
+    Grid grid;
+    AnimationGrid aGrid;
+    private boolean emulating = false;
     long score = 0;
-    long lastScore = 0;
+    private long lastScore = 0;
     long highScore = 0;
     boolean won = false;
     boolean lose = false;
-    Context mContext;
-    MainView mView;
+    private final Context mContext;
+    private final MainView mView;
 
-    public MainGame(Context context, MainView view) {
+    MainGame(Context context, MainView view) {
         mContext = context;
         mView = view;
     }
 
-    public void newGame() {
+    void newGame() {
         grid = new Grid(numSquaresX, numSquaresY);
         aGrid = new AnimationGrid(numSquaresX, numSquaresY);
         highScore = getHighScore();
@@ -51,23 +50,24 @@ public class MainGame {
         lose = false;
         addStartTiles();
         mView.refreshLastTime = true;
-        mView.resyncTime();
+        mView.reSyncTime();
         mView.postInvalidate();
     }
 
-    public void addStartTiles() {
+    private void addStartTiles() {
+        int startTiles = 2;
         for (int xx = 0; xx < startTiles; xx++) {
             this.addRandomTile();
         }
     }
 
-    public void addRandomTile() {
+    private void addRandomTile() {
         if (grid.isCellsAvailable()) {
             addRandomTile(grid.randomAvailableCell());
         }
     }
 
-    public void addRandomTile(Cell cell) {
+    void addRandomTile(Cell cell) {
         int value = Math.random() < 0.1 ? 2 : 4;
         Tile tile = new Tile(cell, value);
         grid.insertTile(tile);
@@ -75,53 +75,53 @@ public class MainGame {
                 SPAWN_ANIMATION_TIME, MOVE_ANIMATION_TIME, null); //Direction: -1 = EXPANDING
     }
 
-    public void recordHighScore() {
+    private void recordHighScore() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(HIGH_SCORE, highScore);
         editor.apply();
     }
 
-    public long getHighScore() {
+    private long getHighScore() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         return settings.getLong(HIGH_SCORE, -1);
     }
 
-    public void prepareTiles() {
+    private void prepareTiles() {
         for (Tile[] array : grid.field) {
             for (Tile tile : array) {
                 if (grid.isCellOccupied(tile)) {
                     tile.setMergedFrom(null);
-                    tile.savePosition();
+                    //tile.savePosition();
                 }
             }
         }
     }
 
-    public void moveTile(Tile tile, Cell cell) {
+    private void moveTile(Tile tile, Cell cell) {
         grid.field[tile.getX()][tile.getY()] = null;
         grid.field[cell.getX()][cell.getY()] = tile;
         tile.updatePosition(cell);
     }
 
-    public void saveState() {
+    private void saveState() {
         grid.saveTiles();
         lastScore = score;
     }
 
-    public void revertState() {
+    void revertState() {
         aGrid = new AnimationGrid(numSquaresX, numSquaresY);
         grid.revertTiles();
         score = lastScore;
 
         if (!emulating) {
             mView.refreshLastTime = true;
-            mView.resyncTime();
+            mView.reSyncTime();
             mView.invalidate();
         }
     }
 
-    public boolean move(int direction) {
+    boolean move(int direction) {
         saveState();
 
         if (!emulating) aGrid = new AnimationGrid(numSquaresX, numSquaresY);
@@ -200,14 +200,14 @@ public class MainGame {
         }
 
         if (!emulating) {
-            mView.resyncTime();
+            mView.reSyncTime();
             mView.postInvalidate();
         }
 
         return moved;
     }
 
-    public void endGame() {
+    private void endGame() {
         if (emulating) return;
 
         aGrid.startAnimation(-1, -1, FADE_GLOBAL_ANIMATION, NOTIFICATION_ANIMATION_TIME, NOTIFICATION_DELAY_TIME, null);
@@ -219,7 +219,7 @@ public class MainGame {
         grid.canRevert = false;
     }
 
-    public Cell getVector(int direction) {
+    Cell getVector(int direction) {
         Cell[] map = {
                 new Cell(0, -1), // up
                 new Cell(1, 0),  // right
@@ -229,8 +229,8 @@ public class MainGame {
         return map[direction];
     }
 
-    public List<Integer> buildTraversalsX(Cell vector) {
-        List<Integer> traversals = new ArrayList<Integer>();
+    private List<Integer> buildTraversalsX(Cell vector) {
+        List<Integer> traversals = new ArrayList<>();
 
         for (int xx = 0; xx < numSquaresX; xx++) {
             traversals.add(xx);
@@ -242,8 +242,8 @@ public class MainGame {
         return traversals;
     }
 
-    public List<Integer> buildTraversalsY(Cell vector) {
-        List<Integer> traversals = new ArrayList<Integer>();
+    private List<Integer> buildTraversalsY(Cell vector) {
+        List<Integer> traversals = new ArrayList<>();
 
         for (int xx = 0; xx < numSquaresY; xx++) {
             traversals.add(xx);
@@ -255,7 +255,7 @@ public class MainGame {
         return traversals;
     }
 
-    public Cell[] findFarthestPosition(Cell cell, Cell vector) {
+    Cell[] findFarthestPosition(Cell cell, Cell vector) {
         Cell previous;
         Cell nextCell = new Cell(cell.getX(), cell.getY());
         do {
@@ -267,11 +267,11 @@ public class MainGame {
         return new Cell[]{previous, nextCell};
     }
 
-    public boolean movesAvailable() {
+    private boolean movesAvailable() {
         return grid.isCellsAvailable() || tileMatchesAvailable();
     }
 
-    public boolean tileMatchesAvailable() {
+    private boolean tileMatchesAvailable() {
         Tile tile;
 
         for (int xx = 0; xx < numSquaresX; xx++) {
@@ -296,7 +296,7 @@ public class MainGame {
         return false;
     }
 
-    public boolean positionsEqual(Cell first, Cell second) {
+    private boolean positionsEqual(Cell first, Cell second) {
         return first.getX() == second.getX() && first.getY() == second.getY();
     }
 
