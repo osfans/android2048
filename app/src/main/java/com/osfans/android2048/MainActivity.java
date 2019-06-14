@@ -1,6 +1,5 @@
 package com.osfans.android2048;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -10,10 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.osfans.android2048.settings.SettingsActivity;
 import com.osfans.android2048.settings.SettingsProvider;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     public static boolean save = true;
     private static MainActivity mSelf;

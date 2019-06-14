@@ -1,25 +1,26 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_undo"
         android:enabled="false"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_undo" />
 
     <item
         android:id="@+id/menu_settings"
         android:enabled="true"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_settings" />
 
     <item
         android:id="@+id/menu_auto_run"
         android:enabled="true"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_auto_run" />
 
     <item
         android:id="@+id/menu_new_game"
         android:enabled="true"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_new_game" />
 </menu>
