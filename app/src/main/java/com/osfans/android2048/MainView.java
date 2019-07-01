@@ -12,8 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
-import com.osfans.android2048.settings.SettingsProvider;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;

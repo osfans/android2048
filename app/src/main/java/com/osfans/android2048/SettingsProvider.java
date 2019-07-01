@@ -1,4 +1,4 @@
-package com.osfans.android2048.settings;
+package com.osfans.android2048;
 
 import android.content.Context;
 import android.content.SharedPreferences;

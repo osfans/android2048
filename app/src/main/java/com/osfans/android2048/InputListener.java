@@ -5,8 +5,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.osfans.android2048.settings.SettingsProvider;
-
 public class InputListener implements View.OnTouchListener, View.OnKeyListener {
 
     private static final int SWIPE_MIN_DISTANCE = 100;

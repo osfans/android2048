@@ -11,9 +11,6 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.osfans.android2048.settings.SettingsActivity;
-import com.osfans.android2048.settings.SettingsProvider;
-
 public class MainActivity extends AppCompatActivity {
 
     public static boolean save = true;
