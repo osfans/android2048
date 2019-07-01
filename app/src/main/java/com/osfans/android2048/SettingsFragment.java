@@ -39,52 +39,53 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mSensitivity) {
-            int sensitivity = Integer.valueOf((String) newValue);
-            String[] sensitivitySummaries = getResources().getStringArray(R.array.settings_sensitivity_entries);
-            mSensitivity.setSummary(sensitivitySummaries[sensitivity]);
-            SettingsProvider.putInt(SettingsProvider.KEY_SENSITIVITY, sensitivity);
-            InputListener.loadSensitivity();
-            return true;
-        } else if (preference == mVariety) {
-            int variety = mVariety.findIndexOfValue((String) newValue);
-            String[] varietySummaries = getResources().getStringArray(R.array.settings_variety_entries);
-            mCustomVariety.setEnabled(variety == varietySummaries.length - 1);
-            mVariety.setSummary(varietySummaries[variety]);
-            SettingsProvider.putString(SettingsProvider.KEY_VARIETY, (String) newValue);
-
-            MainActivity.getInstance().newGame();
-            return true;
-        } else if (preference == mCustomVariety) {
-            SettingsProvider.putString(SettingsProvider.KEY_CUSTOM_VARIETY, (String) newValue);
-            MainActivity.getInstance().newGame();
-            return true;
-        } else if (preference == mInverse) {
-            boolean inverse = (Boolean) newValue;
-            SettingsProvider.putBoolean(SettingsProvider.KEY_INVERSE_MODE, inverse);
-            MainView.inverseMode = inverse;
-            return true;
-        } else if (preference == mSystemFont) {
-            boolean value = (Boolean) newValue;
-            SettingsProvider.putBoolean(SettingsProvider.KEY_SYSTEM_FONT, value);
-            MainActivity.getInstance().newGame();
-            return true;
-        } else if (preference == mOrder) {
-            int order = Integer.valueOf((String) newValue);
-            String[] orderSummaries = getResources().getStringArray(R.array.settings_order_entries);
-            mOrder.setSummary(orderSummaries[order]);
-            SettingsProvider.putInt(SettingsProvider.KEY_ORDER, order);
-            MainActivity.getInstance().newCell();
-            return true;
-        } else if (preference == mRows) {
-            SettingsProvider.putString(SettingsProvider.KEY_ROWS, (String) newValue);
-            mRows.setSummary((String) newValue);
-            clearState();
-            MainActivity.getInstance().newGame();
-            return true;
-        } else {
-            return false;
+        switch (preference.getKey()) {
+            case SettingsProvider.KEY_SENSITIVITY:
+                int sensitivity = Integer.valueOf((String) newValue);
+                String[] sensitivitySummaries = getResources().getStringArray(R.array.settings_sensitivity_entries);
+                mSensitivity.setSummary(sensitivitySummaries[sensitivity]);
+                SettingsProvider.putInt(SettingsProvider.KEY_SENSITIVITY, sensitivity);
+                InputListener.loadSensitivity();
+                break;
+            case SettingsProvider.KEY_VARIETY:
+                int variety = mVariety.findIndexOfValue((String) newValue);
+                String[] varietySummaries = getResources().getStringArray(R.array.settings_variety_entries);
+                mCustomVariety.setEnabled(variety == varietySummaries.length - 1);
+                mVariety.setSummary(varietySummaries[variety]);
+                SettingsProvider.putString(SettingsProvider.KEY_VARIETY, (String) newValue);
+                MainActivity.getInstance().newGame();
+                break;
+            case SettingsProvider.KEY_CUSTOM_VARIETY:
+                SettingsProvider.putString(SettingsProvider.KEY_CUSTOM_VARIETY, (String) newValue);
+                MainActivity.getInstance().newGame();
+                break;
+            case SettingsProvider.KEY_INVERSE_MODE:
+                boolean inverse = (Boolean) newValue;
+                SettingsProvider.putBoolean(SettingsProvider.KEY_INVERSE_MODE, inverse);
+                MainView.inverseMode = inverse;
+                break;
+            case SettingsProvider.KEY_SYSTEM_FONT:
+                boolean value = (Boolean) newValue;
+                SettingsProvider.putBoolean(SettingsProvider.KEY_SYSTEM_FONT, value);
+                MainActivity.getInstance().newGame();
+                break;
+            case SettingsProvider.KEY_ORDER:
+                int order = Integer.valueOf((String) newValue);
+                String[] orderSummaries = getResources().getStringArray(R.array.settings_order_entries);
+                mOrder.setSummary(orderSummaries[order]);
+                SettingsProvider.putInt(SettingsProvider.KEY_ORDER, order);
+                MainActivity.getInstance().newCell();
+                break;
+            case SettingsProvider.KEY_ROWS:
+                SettingsProvider.putString(SettingsProvider.KEY_ROWS, (String) newValue);
+                mRows.setSummary((String) newValue);
+                clearState();
+                MainActivity.getInstance().newGame();
+                break;
+            default:
+                return false;
         }
+        return true;
     }
 
     private void clearState() {
