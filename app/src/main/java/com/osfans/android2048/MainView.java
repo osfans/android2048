@@ -125,7 +125,7 @@ public class MainView extends View {
     };
 
     private void updateFont() {
-        boolean systemFont = SettingsProvider.getBoolean(SettingsProvider.KEY_SYSTEM_FONT, false);
+        boolean systemFont = SettingsProvider.getBoolean(SettingsProvider.KEY_SYSTEM_FONT);
         Typeface font = null;
         if (!systemFont) font = Typeface.createFromAsset(getResources().getAssets(), "Symbola.ttf");
         paint.setTypeface(font);
@@ -558,7 +558,7 @@ public class MainView extends View {
     private void newGame() {
         Resources resources = getResources();
         // Inverse mode
-        inverseMode = SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE, false);
+        inverseMode = SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE);
 
         int i = Integer.valueOf(SettingsProvider.getString(SettingsProvider.KEY_ROWS, "4"));
         MainGame.numSquaresX = i;

@@ -5,25 +5,27 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class InputListener implements View.OnTouchListener, View.OnKeyListener {
+class InputListener implements View.OnTouchListener, View.OnKeyListener {
 
     private static final int SWIPE_MIN_DISTANCE = 100;
-    private static final int RESET_STARTING = 10;
     private static int SWIPE_THRESHOLD_VELOCITY = 40;
     private static int MOVE_THRESHOLD = 250;
     private final MainView mView;
     private final GestureDetector mGestureDetector;
     private float x;
     private float y;
+    /*
+    private static final int RESET_STARTING = 10;
     private float lastDx;
     private float lastDy;
     private float previousX;
     private float previousY;
     private float startingX;
     private float startingY;
+    private boolean moved = false;
+    */
     private int previousDirection = 1;
     private int veryLastDirection = 1;
-    private boolean moved = false;
 
     InputListener(MainView view) {
         super();
@@ -79,7 +81,7 @@ public class InputListener implements View.OnTouchListener, View.OnKeyListener {
         });
     }
 
-    public static void loadSensitivity() {
+    static void loadSensitivity() {
         int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, 1);
         switch (sensitivity) {
             case 0:
