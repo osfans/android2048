@@ -58,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initTitle() {
         Resources resources = getResources();
-        String s = SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default));
-        int i = Integer.valueOf(s);
+        int i = SettingsProvider.getInt(SettingsProvider.KEY_VARIETY, resources.getString(R.string.default_variety));
         String[] varietySummaries = resources.getStringArray(R.array.settings_variety_entries);
         setTitle(varietySummaries[i]);
     }

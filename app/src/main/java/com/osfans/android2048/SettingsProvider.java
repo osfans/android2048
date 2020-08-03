@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 class SettingsProvider {
-    private static final String KEY_PREFERENCES = "preferences";
+    private static final String KEY_PREFERENCES = "com.osfans.android2048_preferences";
 
     static final String KEY_SENSITIVITY = "settings_sensitivity";
     static final String KEY_ORDER = "settings_order";
@@ -20,8 +20,8 @@ class SettingsProvider {
         prefs = context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_MULTI_PROCESS);
     }
 
-    static int getInt(String key, int defaultValue) {
-        return prefs.getInt(key, defaultValue);
+    static int getInt(String key, String defaultValue) {
+        return Integer.parseInt(prefs.getString(key, defaultValue));
     }
 
     static boolean getBoolean(String key) {
@@ -32,10 +32,6 @@ class SettingsProvider {
         return prefs.getString(key, defaultValue);
     }
 
-    static void putInt(String key, int value) {
-        prefs.edit().putInt(key, value).apply();
-    }
-
     static void putBoolean(String key, boolean value) {
         prefs.edit().putBoolean(key, value).apply();
     }
@@ -43,11 +39,4 @@ class SettingsProvider {
     static void putString(String key, String value) {
         prefs.edit().putString(key, value).apply();
     }
-
-    /*
-    static void remove(String key) {
-        prefs.edit().remove(key).apply();
-    }
-    */
-
 }

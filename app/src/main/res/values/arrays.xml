@@ -28,7 +28,6 @@
         <item>7</item>
     </string-array>
     <string name="original_2048" translatable="false">2 4 8 16 32 64 128 256 512 1024 2048</string>
-    <string name="variety_entries_default" translatable="false">1</string>
     <string-array name="variety_strings" translatable="false">
         <item>@string/original_2048</item>
         <item>大胖子怕熱 雞蛋怕砑 小車子怕山 破扁擔怕試 文人怕武 回子怕肉 嗝食病怕喫 壞鞋子怕拔 螃蟹怕酒 陰溝洞怕塞 乖乖隆地咚</item>
@@ -95,4 +94,8 @@
         <item>終極版</item>
         <item>@string/settings_custom_variety</item>
     </string-array>
+    <string name="default_variety" translatable="false">1</string>
+    <string name="default_sensitivity" translatable="false">1</string>
+    <string name="default_order" translatable="false">0</string>
+    <string name="default_row" translatable="false">4</string>
 </resources>

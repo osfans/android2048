@@ -220,7 +220,7 @@ public class MainView extends View {
             paintOrder.setColor(TEXT_BLACK);
         }
         canvas.drawText(tileTexts[value - 1], cellSize / 2f, cellSize / 2f - textShiftY, paint);
-        int order = SettingsProvider.getInt(SettingsProvider.KEY_ORDER, 0);
+        int order = SettingsProvider.getInt(SettingsProvider.KEY_ORDER, getResources().getString(R.string.default_order));
         if (order < 2) {
             canvas.drawText(order == 0 ? String.valueOf(value) : String.valueOf((char) (value - 1 + 'A')), 0, -paintOrder.ascent(), paintOrder);
         }
@@ -502,7 +502,7 @@ public class MainView extends View {
         Resources resources = getResources();
 
         // Tile texts
-        int index = Integer.valueOf(SettingsProvider.getString(SettingsProvider.KEY_VARIETY, resources.getString(R.string.variety_entries_default)));
+        int index = SettingsProvider.getInt(SettingsProvider.KEY_VARIETY, resources.getString(R.string.default_variety));
         String[] values = resources.getStringArray(R.array.variety_strings);
         String s = "";
         if (index == values.length - 1) { // custom
@@ -560,7 +560,7 @@ public class MainView extends View {
         // Inverse mode
         inverseMode = SettingsProvider.getBoolean(SettingsProvider.KEY_INVERSE_MODE);
 
-        int i = Integer.valueOf(SettingsProvider.getString(SettingsProvider.KEY_ROWS, "4"));
+        int i = SettingsProvider.getInt(SettingsProvider.KEY_ROWS, resources.getString(R.string.default_row));
         MainGame.numSquaresX = i;
         MainGame.numSquaresY = i;
         if (!inverseMode) {

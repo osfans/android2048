@@ -5,6 +5,7 @@
         android:entries="@array/settings_variety_entries"
         android:entryValues="@array/variety_values"
         android:key="settings_variety"
+        android:defaultValue="@string/default_variety"
         android:title="@string/settings_variety" />
 
     <EditTextPreference
@@ -16,12 +17,13 @@
         android:entries="@array/settings_rows_values"
         android:entryValues="@array/settings_rows_values"
         android:key="settings_rows"
+        android:defaultValue="@string/default_row"
         android:title="@string/settings_rows" />
 
     <ListPreference
         android:entries="@array/settings_order_entries"
         android:entryValues="@array/settings_order_values"
-        android:defaultValue="@string/variety_entries_default"
+        android:defaultValue="@string/default_order"
         android:key="settings_order"
         android:title="@string/settings_order" />
 
@@ -33,6 +35,7 @@
     <ListPreference
         android:entries="@array/settings_sensitivity_entries"
         android:entryValues="@array/settings_sensitivity_values"
+        android:defaultValue="@string/default_sensitivity"
         android:key="settings_sensitivity"
         android:title="@string/settings_sensitivity" />
 

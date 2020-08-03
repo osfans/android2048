@@ -82,7 +82,7 @@ class InputListener implements View.OnTouchListener, View.OnKeyListener {
     }
 
     static void loadSensitivity() {
-        int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, 1);
+        int sensitivity = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, "1");
         switch (sensitivity) {
             case 0:
                 SWIPE_THRESHOLD_VELOCITY = 20;

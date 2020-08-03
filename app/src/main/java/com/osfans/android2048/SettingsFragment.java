@@ -26,22 +26,42 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         CheckBoxPreference systemFont = findPreference(SettingsProvider.KEY_SYSTEM_FONT);
         mCustomVariety = findPreference(SettingsProvider.KEY_CUSTOM_VARIETY);
 
-        if (sensitivity != null) sensitivity.setOnPreferenceChangeListener(this);
-        if (order != null) order.setOnPreferenceChangeListener(this);
-        if (rows != null) rows.setOnPreferenceChangeListener(this);
-        if (variety != null) variety.setOnPreferenceChangeListener(this);
+        if (sensitivity != null) {
+            int value = SettingsProvider.getInt(SettingsProvider.KEY_SENSITIVITY, getResources().getString(R.string.default_sensitivity));
+            String[] summaries = getResources().getStringArray(R.array.settings_sensitivity_entries);
+            sensitivity.setSummary(summaries[value]);
+            sensitivity.setOnPreferenceChangeListener(this);
+        }
+        if (order != null) {
+            int value = SettingsProvider.getInt(SettingsProvider.KEY_ORDER, getResources().getString(R.string.default_order));
+            String[] summaries = getResources().getStringArray(R.array.settings_order_entries);
+            order.setSummary(summaries[value]);
+            order.setOnPreferenceChangeListener(this);
+        }
+        if (rows != null) {
+            String value = SettingsProvider.getString(SettingsProvider.KEY_ROWS, getResources().getString(R.string.default_row));
+            rows.setSummary(value);
+            rows.setOnPreferenceChangeListener(this);
+        }
+        if (variety != null) {
+            int value = SettingsProvider.getInt(SettingsProvider.KEY_VARIETY, getResources().getString(R.string.default_variety));
+            String[] summaries = getResources().getStringArray(R.array.settings_variety_entries);
+            variety.setSummary(summaries[value]);
+            variety.setOnPreferenceChangeListener(this);
+        }
         if (inverse != null) inverse.setOnPreferenceChangeListener(this);
         if (systemFont != null) systemFont.setOnPreferenceChangeListener(this);
         if (mCustomVariety != null) mCustomVariety.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        switch (preference.getKey()) {
+        String key = preference.getKey();
+        switch (key) {
             case SettingsProvider.KEY_SENSITIVITY:
-                int sensitivity = Integer.valueOf((String) newValue);
+                int sensitivity = Integer.parseInt((String) newValue);
                 String[] sensitivitySummaries = getResources().getStringArray(R.array.settings_sensitivity_entries);
                 preference.setSummary(sensitivitySummaries[sensitivity]);
-                SettingsProvider.putInt(SettingsProvider.KEY_SENSITIVITY, sensitivity);
+                SettingsProvider.putString(SettingsProvider.KEY_SENSITIVITY, (String) newValue);
                 InputListener.loadSensitivity();
                 break;
             case SettingsProvider.KEY_VARIETY:
@@ -67,10 +87,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 MainActivity.getInstance().newGame();
                 break;
             case SettingsProvider.KEY_ORDER:
-                int order = Integer.valueOf((String) newValue);
+                int order = Integer.parseInt((String) newValue);
                 String[] orderSummaries = getResources().getStringArray(R.array.settings_order_entries);
                 preference.setSummary(orderSummaries[order]);
-                SettingsProvider.putInt(SettingsProvider.KEY_ORDER, order);
+                SettingsProvider.putString(SettingsProvider.KEY_ORDER, (String) newValue);
                 MainActivity.getInstance().newCell();
                 break;
             case SettingsProvider.KEY_ROWS:
